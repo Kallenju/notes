@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "pgadmin4",
+  "scripts": {
+    "check": "echo 'pgadmin4 pass' || exit 1"
+  }
+}

@@ -1,0 +1,17 @@
+.dockerignore
+node_modules
+dist
+npm-debug.log
+Dockerfile
+.git
+.gitignore
+.npmrc
+.editorconfig
+.eslintignore
+.eslintrc.cjs
+.prettierignore
+.prettierrc.js
+combined.log
+error.log
+README.md
+log

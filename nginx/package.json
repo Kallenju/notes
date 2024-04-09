@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "nginx",
+  "scripts": {
+    "check": "echo 'nginx pass' || exit 1"
+  }
+}

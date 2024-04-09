@@ -1,0 +1,51 @@
+{% extends "_layout.njk" %}
+
+{% block style %}
+  <style>
+    .uk-divider-icon + h2 {
+      margin-top: 0;
+    }
+  </style>
+{% endblock %}
+
+{% block script %}
+  <script type="module" src="/loginPage.js"></script>
+{% endblock %}
+
+{% block content %}
+  {% if error %}
+    <div class="uk-alert uk-alert-danger">
+      <p>{{ error }}</p>
+    </div>
+  {% endif %}
+
+  <h2>Войти</h2>
+  <form id="login-form">
+    <p><input type="text" name="email" autocomplete="email" class="uk-input" placeholder="Ваш email"></p>
+    <p><input type="password" name="password" autocomplete="current-password" class="uk-input" placeholder="Ваш пароль"></p>
+    <p><button class="uk-button uk-button-primary" type="submit">Вход</button></p>
+  </form>
+
+  <hr class="uk-divider-icon" />
+
+  <h2>Зарегистрироваться</h2>
+  <form id="sign-up-form">
+    <p><input type="text" name="email" autocomplete="email" class="uk-input" placeholder="Ваш email"></p>
+    <p><input type="password" name="password" autocomplete="new-password" class="uk-input" placeholder="Ваш пароль"></p>
+    <p><button class="uk-button uk-button-primary" type="submit">Создать аккаунт</button></p>
+  </form>
+
+  <hr class="uk-divider-icon" />
+
+  <p uk-margin>
+    <div id="google-sign-in-button-container" class="uk-button uk-padding-remove-left uk-padding uk-button-large"></div>
+    <button
+      id="facebook-login-button"
+      class="uk-button uk-button-secondary uk-button-large"
+      type="button"
+    >
+      <i class="fab fa-facebook-f"></i>&nbsp;
+      Facebook
+    </button>
+  </p>
+{% endblock %}

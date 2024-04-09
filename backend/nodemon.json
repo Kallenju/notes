@@ -1,0 +1,8 @@
+{
+  "verbose": true,
+  "legacyWatch": true,
+  "watch": ["./src"],
+  "exec": "NODE_NO_WARNINGS=1 node --nolazy --inspect=0.0.0.0:9929 --loader ts-node/esm ./src/index.ts",
+  "ext": "ts, json",
+  "signal": "SIGTERM"
+}

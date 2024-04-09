@@ -1,0 +1,9 @@
+{
+  "verbose": true,
+  "legacyWatch": false,
+  "watch": ["./src", "./views"],
+  "runOnChangeOnly": false,
+  "exec": "npm run build",
+  "ext": "js, svelte",
+  "signal": "SIGTERM"
+}

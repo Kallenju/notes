@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "notes-db",
+  "scripts": {
+    "check": "echo 'notes-db pass' || exit 1"
+  }
+}

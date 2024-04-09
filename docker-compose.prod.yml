@@ -1,0 +1,162 @@
+version: '3.8'
+
+name: notes_prod
+
+volumes:
+  notes-frontend-public:
+
+networks:
+  nginx-reversive-proxy:
+  backend:
+  notes_db:
+
+services:
+  nginx-reversive-proxy:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx/
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/logrotate:/etc/logrotate.d/nginx:ro
+      - ./nginx/log/:/var/log/nginx/:rw
+    stop_signal: SIGTERM
+    stop_grace_period: 20s
+    init: true
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend-server:
+        condition: service_healthy
+      pgadmin4:
+        condition: service_started
+    ports:
+      - target: 80
+        host_ip: 0.0.0.0
+        published: 80
+        protocol: tcp
+        mode: host
+      - '127.0.0.1:5050:5050'
+      - '127.0.0.1:9929:9929'
+      - '127.0.0.1:9928:9928'
+    networks:
+      - nginx-reversive-proxy
+
+  backend:
+    build:
+      dockerfile: Dockerfile
+      target: prod
+      context: ./backend/
+    stop_signal: SIGTERM
+    stop_grace_period: 20s
+    init: true
+    env_file:
+      - path: ./backend/.development.env
+        required: true
+    networks:
+      nginx-reversive-proxy:
+        priority: 10
+      backend:
+        priority: 20
+      notes_db:
+        priority: 30
+    depends_on:
+      notes_db:
+        condition: service_healthy
+    volumes:
+      - ./backend/log/:/var/log/backend/:rw
+
+  frontend-server:
+    build:
+      dockerfile: Dockerfile
+      target: prod
+      context: ./frontend-server/
+    stop_signal: SIGTERM
+    stop_grace_period: 20s
+    init: true
+    env_file:
+      - path: ./frontend-server/.development.env
+        required: true
+    networks:
+      nginx-reversive-proxy:
+        priority: 10
+      backend:
+        priority: 20
+    volumes:
+      - notes-frontend-public:/usr/app/frontend/public/:ro
+      - ./frontend/views/:/usr/app/frontend/views/:ro
+      - ./frontend-server/log/:/var/log/frontend-server/:rw
+    depends_on:
+      frontend-static:
+        condition: service_started
+      backend:
+        condition: service_healthy
+
+  frontend-static:
+    build:
+      dockerfile: Dockerfile
+      target: prod
+      context: ./frontend/
+    stop_signal: SIGTERM
+    stop_grace_period: 20s
+    init: true
+    volumes:
+      - notes-frontend-public:/usr/app/frontend/public/:rw
+
+  notes_db:
+    build:
+      dockerfile: Dockerfile
+      target: prod
+      context: ./notes-db/
+    env_file:
+      - path: ./notes-db/.development.env
+        required: true
+    stop_signal: SIGTERM
+    stop_grace_period: 20s
+    init: true
+    volumes:
+      - ./notes-db/log/:/var/log/postgres/:rw
+    shm_size: 128mb
+    networks:
+      - notes_db
+
+  task_manager:
+    build:
+      dockerfile: Dockerfile
+      target: prod
+      context: ./task-manager/
+    stop_signal: SIGTERM
+    stop_grace_period: 20s
+    init: true
+    depends_on:
+      notes_db:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    networks:
+      backend:
+        priority: 10
+      notes_db:
+        priority: 20
+    volumes:
+      - ./task-manager/log/:/var/log/cron/:rw
+
+  pgadmin4:
+    build:
+      dockerfile: Dockerfile
+      context: ./pgadmin4/
+    env_file:
+      - path: ./pgadmin4/.development.env
+        required: true
+    stop_signal: SIGTERM
+    stop_grace_period: 20s
+    init: true
+    depends_on:
+      notes_db:
+        condition: service_healthy
+    volumes:
+      - ./pgadmin4/pgadmin4.prod.servers.json:/pgadmin4/servers.json:ro
+    networks:
+      nginx-reversive-proxy:
+        priority: 10
+      notes_db:
+        priority: 20

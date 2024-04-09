@@ -1,0 +1,28 @@
+{
+  "extends": "../tsconfig",
+  "include": [
+    "./",
+  ],
+  "exclude": [
+    "../node_modules"
+  ],
+
+  // "ts-node": {
+  //   "transpileOnly": true,
+  //   "files": true,
+  //   "esm": false,
+  //   "swc": true,
+  // },
+
+  "compilerOptions": {
+    // "module": "CommonJS",
+    // "moduleResolution": "Node10",
+    // "esModuleInterop": true,
+    "typeRoots": [
+      "./",
+      "../node_modules/@types"
+    ],
+    "rootDir": "./" /* Specify the root folder within your source files. */,
+    "outDir": "../dist-tools" /* Specify an output folder for all emitted files. */,
+  }
+}

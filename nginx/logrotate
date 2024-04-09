@@ -1,0 +1,13 @@
+/var/log/nginx/*.log {
+  daily
+  missingok
+  rotate 7
+  dateext
+  compress
+  delaycompress
+  notifempty
+  sharedscripts
+  postrotate
+    kill -s USR1 nginx
+  endscript
+}

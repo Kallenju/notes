@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Attach to frontend-server in docker",
+            "type": "node",
+            "request": "attach",
+            "address": "127.0.0.1",
+            "port": 9928,
+            "restart": true,
+            "sourceMaps": true,
+            "localRoot": "${workspaceFolder}/frontend-server",
+            "remoteRoot": "/usr/app/frontend-server",
+        },
+        {
+            "name": "Attach to backend in docker",
+            "type": "node",
+            "request": "attach",
+            "address": "127.0.0.1",
+            "port": 9929,
+            "restart": true,
+            "sourceMaps": true,
+            "localRoot": "${workspaceFolder}/backend",
+            "remoteRoot": "/usr/app/backend",
+        },
+    ]
+}
