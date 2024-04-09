@@ -1,6 +1,24 @@
 {
-  "private": true,
   "name": "pgadmin4",
+  "version": "1.0.0",
+  "description": "pgadmin4",
+  "keywords": [
+    "pgadmin4",
+    "notes"
+  ],
+  "homepage": "https://github.com/Kallenju/notes/tree/main/pgadmin4#readme",
+  "bugs": {
+    "url": "https://github.com/Kallenju/notes/tree/main/pgadmin4/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Kallenju/notes/tree/main/pgadmin4.git"
+  },
+  "author": {
+    "name": "Konstantin Solovev",
+    "email": "kostyasolovyov54@gmail.com",
+    "web": "https://github.com/Kallenju"
+  },
   "scripts": {
     "check": "echo 'pgadmin4 pass' || exit 1"
   }

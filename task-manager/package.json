@@ -1,6 +1,24 @@
 {
-  "private": true,
   "name": "task-manager",
+  "version": "1.0.0",
+  "description": "task-manager",
+  "keywords": [
+    "task-manager",
+    "notes"
+  ],
+  "homepage": "https://github.com/Kallenju/notes/tree/main/task-manager#readme",
+  "bugs": {
+    "url": "https://github.com/Kallenju/notes/tree/main/task-manager/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Kallenju/notes/tree/main/task-manager.git"
+  },
+  "author": {
+    "name": "Konstantin Solovev",
+    "email": "kostyasolovyov54@gmail.com",
+    "web": "https://github.com/Kallenju"
+  },
   "scripts": {
     "check": "echo 'task-manager pass' || exit 1"
   }

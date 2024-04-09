@@ -1,6 +1,24 @@
 {
-  "private": true,
   "name": "notes",
+  "version": "1.0.0",
+  "description": "notes",
+  "keywords": [
+    "root",
+    "notes"
+  ],
+  "homepage": "https://github.com/Kallenju/notes#readme",
+  "bugs": {
+    "url": "https://github.com/Kallenju/notes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Kallenju/notes.git"
+  },
+  "author": {
+    "name": "Konstantin Solovev",
+    "email": "kostyasolovyov54@gmail.com",
+    "web": "https://github.com/Kallenju"
+  },
   "engines": {
     "node": ">=18.0.0"
   },
@@ -8,7 +26,8 @@
   "scripts": {
     "start": "docker compose -f docker-compose.dev.yml rm -fsv && docker compose -f docker-compose.dev.yml up --build",
     "start:prod": "docker compose -f docker-compose.prod.yml up --build",
-    "check": "lerna run check"
+    "check": "lerna run check",
+    "version": "lerna version"
   },
   "devDependencies": {
     "lerna": "^8.1.2"

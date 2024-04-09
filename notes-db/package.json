@@ -1,6 +1,24 @@
 {
-  "private": true,
   "name": "notes-db",
+  "version": "1.0.0",
+  "description": "notes-db",
+  "keywords": [
+    "notes-db",
+    "notes"
+  ],
+  "homepage": "https://github.com/Kallenju/notes/tree/main/notes-db#readme",
+  "bugs": {
+    "url": "https://github.com/Kallenju/notes/tree/main/notes-db/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Kallenju/notes/tree/main/notes-db.git"
+  },
+  "author": {
+    "name": "Konstantin Solovev",
+    "email": "kostyasolovyov54@gmail.com",
+    "web": "https://github.com/Kallenju"
+  },
   "scripts": {
     "check": "echo 'notes-db pass' || exit 1"
   }

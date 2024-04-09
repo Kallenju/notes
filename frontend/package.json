@@ -1,6 +1,24 @@
 {
-  "private": true,
   "name": "frontend",
+  "version": "1.0.0",
+  "description": "frontend",
+  "keywords": [
+    "frontend",
+    "notes"
+  ],
+  "homepage": "https://github.com/Kallenju/notes/tree/main/frontend#readme",
+  "bugs": {
+    "url": "https://github.com/Kallenju/notes/tree/main/frontend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Kallenju/notes/tree/main/frontend.git"
+  },
+  "author": {
+    "name": "Konstantin Solovev",
+    "email": "kostyasolovyov54@gmail.com",
+    "web": "https://github.com/Kallenju"
+  },
   "scripts": {
     "watch": "node --inspect=0.0.0.0:9229 nodemon.js",
     "build": "rimraf public/bundle.* && rollup --config",

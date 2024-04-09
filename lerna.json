@@ -1,5 +1,12 @@
 {
     "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-    "version": "0.0.0"
+    "version": "1.0.0",
+    "command": {
+        "version": {
+            "conventionalCommits": true,
+            "exact": true,
+            "message": "Chore (release): %s"
+        }
+    }
 }
     

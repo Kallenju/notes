@@ -1,6 +1,24 @@
 {
-  "private": true,
   "name": "nginx",
+  "version": "1.0.0",
+  "description": "nginx",
+  "keywords": [
+    "nginx",
+    "notes"
+  ],
+  "homepage": "https://github.com/Kallenju/notes/tree/main/nginx#readme",
+  "bugs": {
+    "url": "https://github.com/Kallenju/notes/tree/main/nginx/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Kallenju/notes/tree/main/nginx.git"
+  },
+  "author": {
+    "name": "Konstantin Solovev",
+    "email": "kostyasolovyov54@gmail.com",
+    "web": "https://github.com/Kallenju"
+  },
   "scripts": {
     "check": "echo 'nginx pass' || exit 1"
   }

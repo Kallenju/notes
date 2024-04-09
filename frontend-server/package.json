@@ -1,6 +1,24 @@
 {
-  "private": true,
   "name": "frontend-server",
+  "version": "1.0.0",
+  "description": "frontend-server",
+  "keywords": [
+    "frontend-server",
+    "notes"
+  ],
+  "homepage": "https://github.com/Kallenju/notes/tree/main/frontend-server#readme",
+  "bugs": {
+    "url": "https://github.com/Kallenju/notes/tree/main/frontend-server/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Kallenju/notes/tree/main/frontend-server.git"
+  },
+  "author": {
+    "name": "Konstantin Solovev",
+    "email": "kostyasolovyov54@gmail.com",
+    "web": "https://github.com/Kallenju"
+  },
   "type": "module",
   "engines": {
     "node": ">=18.0.0"
