@@ -20,6 +20,7 @@
     "web": "https://github.com/Kallenju"
   },
   "scripts": {
-    "check": "echo 'pgadmin4 pass' || exit 1"
+    "check": "echo 'pgadmin4 pass' || exit 1",
+    "build": "echo 'task-manager pass' || exit 1"
   }
 }
