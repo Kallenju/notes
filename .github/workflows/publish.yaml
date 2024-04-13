@@ -1,0 +1,23 @@
+name: Publish release
+
+on:
+  push:
+    tags: 
+      - '*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 18.19.1
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18.19.1
+        cache: 'npm'
+    - name: instal deps
+      run: npm ci
+    - name: check
+      run: npm run check
+    - name: build
+      run: npm run build

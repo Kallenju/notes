@@ -3,9 +3,10 @@
   "version": "1.0.1",
   "command": {
     "version": {
+      "independently": true,
       "conventionalCommits": true,
       "exact": true,
-      "message": "Chore (release): %s"
+      "message": "chore(release): %s"
     }
   }
 }
