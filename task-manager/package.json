@@ -20,6 +20,7 @@
     "web": "https://github.com/Kallenju"
   },
   "scripts": {
-    "check": "echo 'task-manager pass' || exit 1"
+    "check": "echo 'task-manager pass' || exit 1",
+    "build": "echo 'task-manager pass' || exit 1"
   }
 }
