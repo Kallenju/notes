@@ -25,7 +25,7 @@ jobs:
       run: npx lerna run check --skip-nx-cache --since
   
     - name: Build
-      run: npx run build --skip-nx-cache --since
+      run: npx lerna run build --skip-nx-cache --since
   
     - name: Version
       env:
