@@ -1,4 +1,4 @@
-name: Publish release
+name: Test Publish release
 
 on:
   workflow_dispatch
@@ -22,13 +22,13 @@ jobs:
       run: npm ci
 
     - name: Check
-      run: npm run check --skip-nx-cache --since=origin/${{ github.event.pull_request.base.ref }}
+      run: npx lerna run check --skip-nx-cache --since
   
     - name: Build
-      run: npm run build --skip-nx-cache --since=origin/${{ github.event.pull_request.base.ref }}
+      run: npx run build --skip-nx-cache --since
   
     - name: Version
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npm run version --yes
+      run: npx lerna version --yes
   
