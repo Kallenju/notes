@@ -1,11 +1,14 @@
 {
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-  "version": "1.0.1",
+  "version": "independent",
   "command": {
     "version": {
+      "independently": true,
+      "gitTagVersion": true,
+      "createRelease": "github",
       "conventionalCommits": true,
       "exact": true,
-      "message": "Chore (release): %s"
+      "message": "chore(release): verison"
     }
   }
 }

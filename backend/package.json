@@ -26,11 +26,11 @@
   "scripts": {
     "build": "swc ./src -C minify=true -d ./dist --strip-leading-paths",
     "start": "cross-env NODE_ENV=development nodemon --inspect=127.0.0.1:9229",
+    "check": "npm run lint && npm run prettier && npx tsc --noEmit",
     "lint": "eslint ./src/**/*.ts",
     "lint:fix": "eslint --fix ./src/**/*.ts",
     "prettier": "prettier --check  --config ./.prettierrc.cjs ./src/**/*.ts",
-    "prettier:fix": "prettier --write --config ./.prettierrc.cjs ./src/**/*.ts",
-    "check": "npm run lint && npm run prettier && npx tsc --noEmit"
+    "prettier:fix": "prettier --write --config ./.prettierrc.cjs ./src/**/*.ts"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",

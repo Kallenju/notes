@@ -25,12 +25,12 @@
   },
   "scripts": {
     "build": "swc src -C minify=true -d ./dist --strip-leading-paths",
+    "check": "npm run lint && npm run prettier && npx tsc --noEmit",
     "start": "cross-env NODE_ENV=development nodemon",
     "lint": "eslint ./src/**/*.ts",
     "lint:fix": "eslint --fix ./src/**/*.ts",
     "prettier": "prettier --check  --config ./.prettierrc.cjs ./src/**/*.ts",
-    "prettier:fix": "prettier --write --config ./.prettierrc.cjs ./src/**/*.ts",
-    "check": "npm run lint && npm run prettier && npx tsc --noEmit"
+    "prettier:fix": "prettier --write --config ./.prettierrc.cjs ./src/**/*.ts"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",

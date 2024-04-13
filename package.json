@@ -1,6 +1,7 @@
 {
+  "private": true,
+  "version": "1.0.2",
   "name": "notes",
-  "version": "1.0.0",
   "description": "notes",
   "keywords": [
     "root",
@@ -27,6 +28,8 @@
     "start": "docker compose -f docker-compose.dev.yml rm -fsv && docker compose -f docker-compose.dev.yml up --build",
     "start:prod": "docker compose -f docker-compose.prod.yml up --build",
     "check": "lerna run check",
+    "build": "lerna run build",
+    "bootstrap": "lerna bootstrap",
     "version": "lerna version"
   },
   "devDependencies": {

@@ -1,0 +1,38 @@
+name: Publish release
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  publish:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout 
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Use Node.js 18.19.1
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18.19.1
+        cache: 'npm'
+
+    - name: Instal deps
+      run: npm ci
+
+    - name: Check
+      run: npm run check --skip-nx-cache --since=origin/${{ github.event.pull_request.base.ref }}
+  
+    - name: Build
+      run: npm run build --skip-nx-cache --since=origin/${{ github.event.pull_request.base.ref }}
+  
+    - name: Version
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run version --yes
+  
