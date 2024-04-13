@@ -34,5 +34,5 @@ jobs:
     - name: Version
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npm run version --yes
+      run: npx lerna version --yes
   
