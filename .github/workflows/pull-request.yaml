@@ -1,14 +1,17 @@
-name: Publish release
+name: Linting and tests
 
 on:
   pull_request:
-    types: [closed]
-    branches:
+    branches: 
+      - development
       - main
 
+concurrency: 
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
-  publish:
-    if: github.event.pull_request.merged == true
+  validate:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout 
@@ -24,18 +27,12 @@ jobs:
 
     - name: Instal root deps
       run: npm ci --workspaces=false
-    
+  
     - name: Instal deps in changed packages
       run: npm run bootstrap --since ${{ github.event.pull_request.base.ref }}
-  
+
     - name: Check
       run: npm run check --skip-nx-cache --since ${{ github.event.pull_request.base.ref }}
-  
+
     - name: Build
       run: npm run build --skip-nx-cache --since ${{ github.event.pull_request.base.ref }}
-  
-    - name: Version
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npm run version --yes
-  
