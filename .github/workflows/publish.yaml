@@ -26,13 +26,13 @@ jobs:
       run: npm ci --workspaces=false
     
     - name: Instal deps in changed packages
-      run: npm run bootstrap --since ${{ github.event.pull_request.base.ref }}
+      run: npm run bootstrap --since=origin/${{ github.event.pull_request.base.ref }}
   
     - name: Check
-      run: npm run check --skip-nx-cache --since ${{ github.event.pull_request.base.ref }}
+      run: npm run check --skip-nx-cache --since=origin/${{ github.event.pull_request.base.ref }}
   
     - name: Build
-      run: npm run build --skip-nx-cache --since ${{ github.event.pull_request.base.ref }}
+      run: npm run build --skip-nx-cache --since=origin/${{ github.event.pull_request.base.ref }}
   
     - name: Version
       env:
