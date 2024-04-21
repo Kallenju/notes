@@ -31,7 +31,6 @@ jobs:
 
     - name: Merge master to development
       run: |
-        git fetch --unshallow
         git pull origin main
         git merge --no-ff master -m "Auto-merge master to development"
         git push origin development
