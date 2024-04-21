@@ -1,3 +1,3 @@
 # jobs
-* * * * * /home/task-manager/tasks/periodicallyLog.sh >> /var/log/cron/tasks.log 2>&1
+0 0 * * * /home/task-manager/tasks/backupNotesDB.sh >> /var/log/cron/tasks.log 2>&1
 # remember to end this file with an empty new line
