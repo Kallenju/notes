@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_VERSION=18.19.1
+ARG NODE_VERSION=18.20.2
 
 FROM node:${NODE_VERSION}-alpine as base
 
@@ -13,7 +13,7 @@ COPY ./src/ /usr/app/backend/src/
 VOLUME /var/log/backend/ /usr/app/backend/src/
 EXPOSE 3000/tcp 9929/tcp
 STOPSIGNAL SIGTERM
-HEALTHCHECK --interval=360s --timeout=3s --start-period=10s --start-interval=1s --retries=5 \
+HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s --retries=5 \
   CMD wget --no-verbose --tries=1 --spider http://0.0.0.0:3000/api/healthcheck || exit 1
 CMD ["node", "./node_modules/nodemon/bin/nodemon.js", "--config", "./nodemon.json"]
 
@@ -34,6 +34,6 @@ COPY --chown=node:node --from=production-build /usr/app/backend/dist/ /usr/app/b
 VOLUME /var/log/backend/
 EXPOSE 3000/tcp 9929/tcp
 STOPSIGNAL SIGTERM
-HEALTHCHECK --interval=360s --timeout=3s --start-period=10s --start-interval=1s --retries=5 \
+HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s --retries=5 \
   CMD wget --no-verbose --tries=1 --spider http://0.0.0.0:3000/api/healthcheck || exit 1
 CMD ["node", "./dist/index.js"]
