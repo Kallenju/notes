@@ -13,7 +13,7 @@ initDB()
   })
   .catch((error: unknown) => {
     logger.error(
-      `Cannot start backend. Error:\n${error instanceof Error && error.stack ? error.stack : error}\n____________________________________\n`,
+      `Cannot start test backend. Error:\n${error instanceof Error && error.stack ? error.stack : error}\n____________________________________\n`,
     );
 
     process.emit('SIGTERM');
