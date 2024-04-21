@@ -2,15 +2,13 @@ name: Test Publish release
 
 on:
   workflow_dispatch:
-  pull_request:
-    types: [closed]
-    branches:
-      - main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
+    if: ${{ github.ref == 'refs/heads/development' }}
+    
     permissions:
       contents: write
 
