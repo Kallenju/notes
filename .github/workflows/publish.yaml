@@ -29,10 +29,10 @@ jobs:
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor}}@users.noreply.github.com" 
 
-    - name: Merge master to development
+    - name: Merge main to development
       run: |
         git pull origin main
-        git merge --no-ff master -m "Auto-merge master to development"
+        git merge --no-ff main -m "Auto-merge main to development"
         git push origin development
 
     - name: Instal deps
