@@ -15,11 +15,11 @@ services:
     image: nginx:1.25.3-alpine-slim
     volumes:
       - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/logrotate:/etc/logrotate.d/nginx:ro
       - ./nginx/log/:/var/log/nginx/:rw
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
+    restart: unless-stopped
     depends_on:
       backend:
         condition: service_healthy
@@ -47,6 +47,7 @@ services:
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
+    restart: unless-stopped
     env_file:
       - path: ./backend/.development.env
         required: true
@@ -72,6 +73,7 @@ services:
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
+    restart: unless-stopped
     env_file:
       - path: ./frontend-server/.development.env
         required: true
@@ -99,6 +101,7 @@ services:
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
+    restart: unless-stopped
     volumes:
       - ./frontend/src/:/usr/app/frontend/src/:ro
       - notes-frontend-public:/usr/app/frontend/public/:rw
@@ -108,15 +111,17 @@ services:
       dockerfile: Dockerfile
       target: dev
       context: ./notes-db/
+      shm_size: 256mb
     env_file:
       - path: ./notes-db/.development.env
         required: true
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
+    restart: unless-stopped
     volumes:
       - ./notes-db/log/:/var/log/postgres/:rw
-    shm_size: 128mb
+    shm_size: 256mb
     networks:
       - notes_db
 
@@ -125,9 +130,13 @@ services:
       dockerfile: Dockerfile
       target: dev
       context: ./task-manager/
+    env_file:
+      - path: ./notes-db/.development.env
+        required: true
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
+    restart: unless-stopped
     depends_on:
       notes_db:
         condition: service_healthy
@@ -140,6 +149,7 @@ services:
         priority: 20
     volumes:
       - ./task-manager/log/:/var/log/cron/:rw
+      - ./task-manager/pgbackups/:/var/opt/pgbackups/:rw
 
   pgadmin4:
     build:
@@ -151,6 +161,7 @@ services:
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
+    restart: unless-stopped
     depends_on:
       notes_db:
         condition: service_healthy

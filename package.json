@@ -24,8 +24,8 @@
   },
   "workspaces": ["backend", "frontend", "frontend-server", "nginx", "notes-db", "pgadmin4", "task-manager"],
   "scripts": {
-    "start": "docker compose -f docker-compose.dev.yml rm -fsv && docker compose -f docker-compose.dev.yml up --build",
-    "start:prod": "docker compose -f docker-compose.prod.yml up --build"
+    "start": "docker compose -f docker-compose.dev.yml up --build",
+    "start:prod": "docker compose -f docker-compose.prod.yml build && docker compose -f docker-compose.prod.yml up --detach"
   },
   "devDependencies": {
     "lerna": "^8.1.2"
