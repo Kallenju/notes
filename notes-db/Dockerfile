@@ -1,10 +1,10 @@
 FROM postgres:16.2-alpine AS base
-VOLUME /var/log/postgresql/
+VOLUME /var/log/postgresql/ /var/lib/postgresql/data/
 STOPSIGNAL SIGTERM
 RUN mkdir -p /var/log/postgres/ \
     && touch /var/log/postgres/postgresql.log \
     && chown -R postgres:postgres /var/log/postgres/
-HEALTHCHECK --interval=360s --timeout=3s --start-period=10s --start-interval=1s --retries=5 \
+HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s --retries=5 \
     CMD pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER} || exit 1
 EXPOSE 5432/tcp
 
