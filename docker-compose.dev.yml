@@ -154,6 +154,7 @@ services:
   pgadmin4:
     build:
       dockerfile: Dockerfile
+      target: dev
       context: ./pgadmin4/
     env_file:
       - path: ./pgadmin4/.development.env

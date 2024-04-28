@@ -30,7 +30,8 @@ export async function verifyAndParseToken(token: string): Promise<{
     typeof tokenPayload === 'string' ||
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     !isMicroserviceName(tokenPayload.sub) ||
-    tokenPayload?.scope !== 'microservice'
+    tokenPayload?.scope !== 'microservice' ||
+    typeof tokenPayload?.tokenUUID !== 'string'
   ) {
     logger.error(
       `Microservice access token payload is wrong: ${JSON.stringify(tokenPayload)}.`,
@@ -39,7 +40,7 @@ export async function verifyAndParseToken(token: string): Promise<{
     throw new StatusError('Microservice access token is wrong.', 401);
   }
 
-  if (await isTokenRevoked(token)) {
+  if (await isTokenRevoked(tokenPayload.tokenUUID)) {
     logger.error(`Microservice access token is revoked: token=${token}.`);
 
     throw new StatusError('Microservice access token is wrong.', 401);

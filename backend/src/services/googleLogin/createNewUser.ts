@@ -9,7 +9,7 @@ export async function createNewUser(
   googleUserId: string,
   email: string,
   client: PoolClient,
-): Promise<string> {
+): Promise<{ userId: string; alreadyExistingProfile: boolean }> {
   const emailExists = await doesEmailExist(email, client);
 
   if (emailExists.googleEmail) {
@@ -64,5 +64,5 @@ export async function createNewUser(
 
   await doesEmailExist(email, client);
 
-  return userId;
+  return { userId, alreadyExistingProfile: Boolean(emailExists.userId) };
 }

@@ -32,7 +32,8 @@ export async function verifyAndParseToken(
     typeof tokenPayload === 'string' ||
     typeof tokenPayload?.sub !== 'string' ||
     !isLoginType(tokenPayload?.loginType) ||
-    tokenPayload?.scope !== 'user'
+    tokenPayload?.scope !== 'user' ||
+    typeof tokenPayload?.tokenUUID !== 'string'
   ) {
     logger.error(
       `User access token is malformed: tokenPayload=${JSON.stringify(tokenPayload)}`,
@@ -47,7 +48,7 @@ export async function verifyAndParseToken(
     throw new StatusError('Your credentials are wrong. Please re-login.', 401);
   }
 
-  if (await isTokenRevoked(token)) {
+  if (await isTokenRevoked(tokenPayload.tokenUUID)) {
     logger.error(`Token is revoked: token=${JSON.stringify(token)}`);
 
     throw new StatusError('Your credentials are wrong. Please re-login.', 401);
