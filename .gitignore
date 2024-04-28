@@ -1,5 +1,8 @@
 .nx
 
+secrets
+secrets.txt
+
 dist
 
 # Logs

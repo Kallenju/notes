@@ -9,7 +9,7 @@ export async function createNewUser(
   facebookUserId: string,
   email: string,
   client: PoolClient,
-): Promise<string> {
+): Promise<{ userId: string; alreadyExistingProfile: boolean }> {
   const emailExists = await doesEmailExist(email, client);
 
   if (emailExists.facebookEmail) {
@@ -64,5 +64,5 @@ export async function createNewUser(
 
   await doesEmailExist(email, client);
 
-  return userId;
+  return { userId, alreadyExistingProfile: Boolean(emailExists.userId) };
 }

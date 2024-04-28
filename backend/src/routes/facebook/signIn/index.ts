@@ -49,9 +49,13 @@ signInRouter.post<
       let userId: string | null = null;
 
       if (!facebookUserExists) {
-        userId = await createNewUser(facebookUserId, email, client);
+        const result = await createNewUser(facebookUserId, email, client);
 
-        await createDemoNote(userId, client);
+        userId = result.userId;
+
+        if (!result.alreadyExistingProfile) {
+          await createDemoNote(userId, client);
+        }
       } else {
         const user = await getUserByFacebookUserId(facebookUserId, client);
 

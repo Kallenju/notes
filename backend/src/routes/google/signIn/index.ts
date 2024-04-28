@@ -47,13 +47,17 @@ signInRouter.post<Record<string, never>, unknown, { credential: string }>(
         let userId: string | null = null;
 
         if (!googleUserExists) {
-          userId = await createNewUser(
+          const result = await createNewUser(
             parsedCredential.userId,
             parsedCredential.email,
             client,
           );
 
-          await createDemoNote(userId, client);
+          userId = result.userId;
+
+          if (!result.alreadyExistingProfile) {
+            await createDemoNote(userId, client);
+          }
         } else {
           const user = await getUserByGoogleUserId(
             parsedCredential.userId,
