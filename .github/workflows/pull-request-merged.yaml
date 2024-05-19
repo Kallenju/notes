@@ -1,4 +1,4 @@
-name: Linting and tests
+name: Sync branches
 
 on:
   pull_request:
