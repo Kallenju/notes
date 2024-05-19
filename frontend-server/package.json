@@ -21,7 +21,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "build": "swc src -C minify=true -d ./dist --strip-leading-paths",
