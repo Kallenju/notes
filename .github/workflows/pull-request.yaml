@@ -27,7 +27,7 @@ jobs:
 
     - name: Instal deps
       run: |
-        current_dir=$(node.exe -e "process.stdout.write(process.cwd())" | sed 's|\\|/|g')
+        current_dir=$(node -e "process.stdout.write(process.cwd())" | sed 's|\\|/|g')
         workspaces=$(npx lerna changed --parseable | sed -E -e 's|\\|/|g' -e "s|^$current_dir/|--workspace=|" | paste -sd ' ' -)
         npm ci $workspaces
 
