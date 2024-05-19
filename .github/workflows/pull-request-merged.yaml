@@ -6,10 +6,17 @@ on:
       - main
     types:
       - closed
+
+env:
+  CI: true
   
 jobs:
   update-development:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
     - name: Merge main to development
       run: |
