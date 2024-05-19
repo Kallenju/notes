@@ -16,7 +16,7 @@ jobs:
       contents: write
 
     steps:
-    - name: Merge main to development
+    - name: Merge main to development remotly
       run: |
         curl -L \
         -X POST \
@@ -30,6 +30,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - name: Merge main to development locally
+      run: |
+        git fetch origin main
+        git merge origin/main --no-edit
 
     - name: Use Node.js 20.13.1
       uses: actions/setup-node@v4
