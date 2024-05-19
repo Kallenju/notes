@@ -3,6 +3,9 @@ name: Publish release
 on:
   workflow_dispatch
 
+env:
+  CI: true
+
 jobs:
   publish:
     runs-on: ubuntu-latest
