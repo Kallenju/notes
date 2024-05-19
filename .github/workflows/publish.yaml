@@ -31,11 +31,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Merge main to development locally
-      run: |
-        git fetch origin main
-        git merge origin/main --no-edit
-
     - name: Use Node.js 20.13.1
       uses: actions/setup-node@v4
       with:
