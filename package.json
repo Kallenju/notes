@@ -20,12 +20,13 @@
     "web": "https://github.com/Kallenju"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "workspaces": ["backend", "frontend", "frontend-server", "nginx", "notes-db", "pgadmin4", "task-manager"],
   "scripts": {
     "start": "docker compose -f docker-compose.dev.yml up --build",
-    "start:prod": "docker compose -f docker-compose.prod.yml build && docker compose -f docker-compose.prod.yml up --detach"
+    "start:prod": "docker compose -f docker-compose.prod.yml build && docker compose -f docker-compose.prod.yml up --detach",
+    "update:prod": "docker compose -f docker-compose.prod.yml build && docker compose -f docker-compose.prod.yml up --no-deps --detach"
   },
   "devDependencies": {
     "lerna": "^8.1.2"

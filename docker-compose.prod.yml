@@ -51,7 +51,7 @@ services:
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
-    restart: unless-stopped
+    restart: always
     depends_on:
       backend:
         condition: service_healthy
@@ -79,9 +79,17 @@ services:
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
-    restart: unless-stopped
+    restart: always
     secrets:
-      - postgres_passwd
+      - notes-app-access-token-jwt-secret
+      - notes-app-microservice-token-jwt-secret
+      - notes-app-google-client-id
+      - notes-app-google-csrf-token-jwt-secret
+      - notes-app-facebook-app-id
+      - notes-app-facebook-app-secret
+      - notes-app-facebook-csrf-token-jwt-secret
+      - notes-app-frontend-server-public-key
+      - notes-app-cookie-secret
     environment:
       NODE_ENV: production
       PORT: 3000
@@ -121,7 +129,10 @@ services:
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
-    restart: unless-stopped
+    restart: always
+    secrets:
+      - notes-app-frontend-server-auth-private-key
+      - notes-app-frontend-server-auth-passphrase
     environment:
       NODE_ENV: production
       PORT: 3000
@@ -152,7 +163,7 @@ services:
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
-    restart: unless-stopped
+    restart: always
     volumes:
       - notes-frontend-public:/usr/app/frontend/public/:rw
 
@@ -162,6 +173,8 @@ services:
       target: prod
       context: ./notes-db/
       shm_size: 256mb
+    secrets:
+      - notes-app-notes-db-postgres-passwd
     environment:
       POSTGRES_PASSWORD: /run/secrets/notes-app-notes-db-postgres-passwd
       POSTGRES_DB: notes
@@ -171,7 +184,7 @@ services:
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
-    restart: unless-stopped
+    restart: always
     volumes:
       - ./notes-db/log/:/var/log/postgres/:rw
       - ./notes-db/postgreSQL-data/:/var/lib/postgresql/data/:rw
@@ -184,6 +197,8 @@ services:
       dockerfile: Dockerfile
       target: prod
       context: ./task-manager/
+    secrets:
+      - notes-app-notes-db-postgres-passwd
     environment:
       BACKUP_KEEP_DAYS: 1
       NOTES_POSTGRES_PASSWORD: /run/secrets/notes-app-notes-db-postgres-passwd
@@ -194,7 +209,7 @@ services:
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
-    restart: unless-stopped
+    restart: always
     depends_on:
       notes_db:
         condition: service_healthy
@@ -214,13 +229,16 @@ services:
       dockerfile: Dockerfile
       target: prod
       context: ./pgadmin4/
+    secrets:
+      - notes-app-pgadmin-default-email
+      - notes-app-pgadmin-default-password
     environment:
       PGADMIN_DEFAULT_EMAIL: /run/secrets/notes-app-pgadmin-default-email
       PGADMIN_DEFAULT_PASSWORD: /run/secrets/notes-app-pgadmin-default-password
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true
-    restart: unless-stopped
+    restart: always
     depends_on:
       notes_db:
         condition: service_healthy

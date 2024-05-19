@@ -28,14 +28,17 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Use Node.js 18.20.2
+    - name: Use Node.js 20.13.1
       uses: actions/setup-node@v4
       with:
-        node-version: 18.20.2
+        node-version: 20.13.1
         cache: 'npm'
 
     - name: Instal deps
-      run: npm ci
+      run: |
+        current_dir=$(node.exe -e "process.stdout.write(process.cwd())" | sed 's|\\|/|g')
+        workspaces=$(npx lerna changed --parseable | sed -E -e 's|\\|/|g' -e "s|^$current_dir/|--workspace=|" | paste -sd ' ' -)
+        npm ci $workspaces
 
     - name: Check
       run: npx lerna run check --skip-nx-cache --since
@@ -48,5 +51,5 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config user.name "${{ github.actor }}"
-        git config user.email "${{ github.actor}}@users.noreply.github.com"   
+        git config user.email "${{ github.actor }}@users.noreply.github.com"   
         npx lerna version --yes
