@@ -48,8 +48,8 @@ jobs:
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"   
         json_output=$(npx lerna version --yes)
-        git push origin main --no-follow-tags
         commands=$(node -e 'const entities = JSON.parse(process.argv[1]); const sleep = "sleep 1"; const commands = entities.map((entity, index) => { const { name, newVersion } = entity; const tag = `${name}@${newVersion}`; const command = `git push origin ${tag}`; return index === entities.length - 1 ? command : `${command}; ${sleep}`; }); process.stdout.write(commands.join("; "));' "$json_output")
+        git push origin main --no-follow-tags
         eval "$commands"
 
   update-development:
