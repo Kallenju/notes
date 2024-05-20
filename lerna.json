@@ -10,7 +10,8 @@
       "message": "chore(release): version",
       "allowBranch": "main",
       "push": false,
-      "json": true
+      "json": true,
+      "tagVersionSeparator": "-"
     }
   }
 }
