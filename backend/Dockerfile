@@ -18,15 +18,21 @@ HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s 
 CMD ["node", "./node_modules/nodemon/bin/nodemon.js", "--config", "./nodemon.json"]
 
 FROM base AS production-build
+USER node
 WORKDIR /usr/app/backend/
-COPY package.json package-lock.json /usr/app/backend/
+COPY --chown=node:node package.json package-lock.json /usr/app/backend/
 RUN npm ci --omit=dev && npm cache clean --force
-COPY .swcrc tsconfig.json /usr/app/backend/
-COPY ./src/ /usr/app/backend/src/
+COPY --chown=node:node .swcrc tsconfig.json /usr/app/backend/
+COPY --chown=node:node ./src/ /usr/app/backend/src/
 RUN npm run build
 
 FROM base as prod
-USER node
+LABEL org.opencontainers.image.title="Notes Backend" \
+      org.opencontainers.image.description="Notes Backend" \
+      org.opencontainers.image.authors="https://github.com/Kallenju" \
+      org.opencontainers.image.url="https://github.com/Kallenju/notes" \
+      org.opencontainers.image.documentation="https://github.com/Kallenju/notes" \
+      org.opencontainers.image.source="https://github.com/Kallenju/notes"
 WORKDIR /usr/app/backend/
 COPY --chown=node:node package.json /usr/app/backend/
 COPY --chown=node:node --from=production-build /usr/app/backend/node_modules/ /usr/app/backend/node_modules/

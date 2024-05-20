@@ -27,5 +27,11 @@ COPY --chown=task-manager:task-manager ./.development.env /home/task-manager/tas
 ENTRYPOINT ["crond", "-f", "-d", "8", "-l", "8", "-L", "/var/log/cron/cron.log"]
 
 FROM base as prod
+LABEL org.opencontainers.image.title="Notes Task Manager" \
+      org.opencontainers.image.description="Notes Task Manager" \
+      org.opencontainers.image.authors="https://github.com/Kallenju" \
+      org.opencontainers.image.url="https://github.com/Kallenju/notes" \
+      org.opencontainers.image.documentation="https://github.com/Kallenju/notes" \
+      org.opencontainers.image.source="https://github.com/Kallenju/notes"
 COPY --chown=task-manager:task-manager ./.development.env /home/task-manager/tasks/environment
 ENTRYPOINT ["crond", "-f", "-d", "8", "-l", "8", "-L", "/var/log/cron/cron.log"]
