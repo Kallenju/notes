@@ -1,4 +1,10 @@
 FROM nginx:1.25.3-alpine-slim
+LABEL org.opencontainers.image.title="Notes Nginx" \
+      org.opencontainers.image.description="Notes Nginx" \
+      org.opencontainers.image.authors="https://github.com/Kallenju" \
+      org.opencontainers.image.url="https://github.com/Kallenju/notes" \
+      org.opencontainers.image.documentation="https://github.com/Kallenju/notes" \
+      org.opencontainers.image.source="https://github.com/Kallenju/notes"
 COPY ./logrotate /etc/logrotate.d/nginx
 RUN chmod 644 /etc/logrotate.d/nginx
 VOLUME /etc/nginx/nginx.conf /etc/logrotate.d/nginx /var/log/nginx/
