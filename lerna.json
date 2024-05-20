@@ -5,7 +5,6 @@
     "version": {
       "independently": true,
       "gitTagVersion": true,
-      "createRelease": "github",
       "conventionalCommits": true,
       "exact": true,
       "message": "chore(release): version",
