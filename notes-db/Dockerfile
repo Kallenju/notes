@@ -12,7 +12,7 @@ FROM base AS dev
 CMD [ "postgres", "-c", "maintenance_work_mem=512MB", "-c", "logging_collector=on", "-c", "log_directory=/var/log/postgres/", "-c", "log_filename=postgresql.log", "-c", "log_statement=all", "-c", "log_duration=1", "-c", "log_min_duration_statement=100", "-c", "log_destination=jsonlog", "-c", "log_rotation_age=1d", "-c", "log_rotation_size=10MB" ]
 
 FROM base AS prod
-LABEL org.opencontainers.image.title="Notes Pet DB" \
+LABEL org.opencontainers.image.title="Notes DB" \
       org.opencontainers.image.description="Human-readable description of the software packaged in the image (string)" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \
       org.opencontainers.image.url="https://github.com/Kallenju/notes" \
