@@ -19,16 +19,31 @@
     "email": "kostyasolovyov54@gmail.com",
     "web": "https://github.com/Kallenju"
   },
+  "type": "module",
   "engines": {
     "node": ">=20.0.0"
   },
-  "workspaces": ["backend", "frontend", "frontend-server", "nginx", "notes-db", "pgadmin4", "task-manager"],
+  "workspaces": [
+    "backend",
+    "frontend",
+    "frontend-server",
+    "nginx",
+    "notes-db",
+    "pgadmin4",
+    "task-manager"
+  ],
   "scripts": {
-    "start": "docker compose -f docker-compose.dev.yml up --build",
+    "createPackagesSpecificLock": "NODE_NO_WARNINGS=1 node --loader ts-node/esm ./tools/buildPackageLock.ts frontend && NODE_NO_WARNINGS=1 node --loader ts-node/esm ./tools/buildPackageLock.ts backend && NODE_NO_WARNINGS=1 node --loader ts-node/esm ./tools/buildPackageLock.ts frontend-server",
+    "start": "npm run createPackagesSpecificLock && docker compose -f docker-compose.dev.yml up --build",
     "start:prod": "docker compose -f docker-compose.prod.yml build && docker compose -f docker-compose.prod.yml up --detach",
     "update:prod": "docker compose -f docker-compose.prod.yml build && docker compose -f docker-compose.prod.yml up --no-deps --detach"
   },
   "devDependencies": {
-    "lerna": "^8.1.2"
+    "@npm/types": "^1.0.2",
+    "@npmcli/arborist": "^7.5.2",
+    "@types/npmcli__arborist": "^5.6.6",
+    "lerna": "^8.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
