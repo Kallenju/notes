@@ -35,3 +35,4 @@ WORKDIR /usr/app/frontend/
 COPY --chown=node:node ./views/ /usr/app/frontend/views/
 COPY --chown=node:node --from=production-build /usr/app/frontend/public/ /usr/app/frontend/public/
 VOLUME /usr/app/frontend/views/ /usr/app/frontend/public/
+CMD ["tail", "-f", "/dev/null"]

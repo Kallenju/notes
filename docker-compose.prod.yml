@@ -27,14 +27,12 @@ secrets:
     external: true
   notes-app-frontend-server-auth-passphrase:
     external: true
-  notes-app-pgadmin-default-email:
-    external: true
   notes-app-pgadmin-default-password:
     external: true
 
 volumes:
   notes-frontend-public:
-  notes-frontend-view:
+  notes-frontend-views:
   notes-db-data:
 
 networks:
@@ -139,7 +137,7 @@ services:
       PORT: 3000
       AUTH_PRIVATE_KEY: /run/secrets/notes-app-frontend-server-auth-private-key
       AUTH_PASSPHRASE: /run/secrets/notes-app-frontend-server-auth-passphrase
-      BACKEND_URL: http://backend:3000
+      BACKEND_URL: http://swarm-backend:3000
       BACKEND_TOKEN: initial
     networks:
       notes-nginx-reversive-proxy:
@@ -148,7 +146,7 @@ services:
         priority: 20
     volumes:
       - notes-frontend-public:/usr/app/frontend/public/:ro
-      - notes-frontend-public-views:/usr/app/frontend/views/:ro
+      - notes-frontend-views:/usr/app/frontend/views/:ro
       - ./frontend-server/log/:/var/log/frontend-server/:rw
     depends_on:
       frontend-static:
@@ -194,7 +192,7 @@ services:
     networks:
       - notes-notes-db
 
-  task_manager:
+  task-manager:
     build:
       dockerfile: Dockerfile
       target: prod
@@ -202,6 +200,7 @@ services:
     secrets:
       - notes-app-notes-db-postgres-passwd
     environment:
+      PRODUCTION: true
       BACKUP_KEEP_DAYS: 1
       NOTES_POSTGRES_PASSWORD: /run/secrets/notes-app-notes-db-postgres-passwd
       NOTES_POSTGRES_DATABASE: notes
@@ -232,11 +231,10 @@ services:
       target: prod
       context: ./pgadmin4/
     secrets:
-      - notes-app-pgadmin-default-email
       - notes-app-pgadmin-default-password
     environment:
-      PGADMIN_DEFAULT_EMAIL: /run/secrets/notes-app-pgadmin-default-email
-      PGADMIN_DEFAULT_PASSWORD: /run/secrets/notes-app-pgadmin-default-password
+      PGADMIN_DEFAULT_EMAIL: kostyasolovyov54@gmail.com
+      PGADMIN_DEFAULT_PASSWORD_FILE: /run/secrets/notes-app-pgadmin-default-password
     stop_signal: SIGTERM
     stop_grace_period: 20s
     init: true

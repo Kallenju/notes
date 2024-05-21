@@ -106,7 +106,7 @@ services:
       - ./frontend/src/:/usr/app/frontend/src/:ro
       - notes-frontend-public:/usr/app/frontend/public/:rw
 
-  notes_db:
+  notes-db:
     build:
       dockerfile: Dockerfile
       target: dev
@@ -125,7 +125,7 @@ services:
     networks:
       - notes_db
 
-  task_manager:
+  task-manager:
     build:
       dockerfile: Dockerfile
       target: dev
