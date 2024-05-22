@@ -1,11 +1,8 @@
 .nx
 
-secrets
-secrets.txt
+real-secrets
 
 dist
-
-commands.txt
 
 # Logs
 log
