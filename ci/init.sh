@@ -1,14 +1,10 @@
 # /bin/sh
 
-# docker volume create --name notes-frontend-public
-# docker volume create --name notes-frontend-views
-# docker volume create --name notes-db-data
-
 set -e
 
-current_dir="$(cd "$(dirname "$0")" && pwd)"/
+current_dir="$(cd "$(dirname "$0")" && pwd)"
 
-secrets_names=(
+docker_secrets_names=(
     "notes-notes-db-postgres-passwd"
     "notes-access-token-jwt-secret"
     "notes-microservice-token-jwt-secret"
@@ -23,26 +19,30 @@ secrets_names=(
     "notes-frontend-server-auth-passphrase"
     "notes-pgadmin-default-email"
     "notes-pgadmin-default-password"
+    "notes-nginx-certificate"
+    "notes-nginx-certificate-key"
 )
 
-secrets_file_paths=(
-    "./secrets/notes-notes-db-postgres-passwd.txt"
-    "./secrets/notes-access-token-jwt-secret.txt"
-    "./secrets/notes-microservice-token-jwt-secret.txt"
-    "./secrets/notes-google-client-id.txt"
-    "./secrets/notes-google-csrf-token-jwt-secret.txt"
-    "./secrets/notes-facebook-app-id.txt"
-    "./secrets/notes-facebook-app-secret.txt"
-    "./secrets/notes-facebook-csrf-token-jwt-secret.txt"
-    "./secrets/notes-frontend-server-public-key.txt"
-    "./secrets/notes-cookie-secret.txt"
-    "./secrets/notes-frontend-server-auth-private-key.txt"
-    "./secrets/notes-frontend-server-auth-passphrase.txt"
-    "./secrets/notes-pgadmin-default-email.txt"
-    "./secrets/notes-pgadmin-default-password.txt"
+docker_secrets_file_paths=(
+    "${current_dir}/secrets/notes-notes-db-postgres-passwd.txt"
+    "${current_dir}/secrets/notes-access-token-jwt-secret.txt"
+    "${current_dir}/secrets/notes-microservice-token-jwt-secret.txt"
+    "${current_dir}/secrets/notes-google-client-id.txt"
+    "${current_dir}/secrets/notes-google-csrf-token-jwt-secret.txt"
+    "${current_dir}/secrets/notes-facebook-app-id.txt"
+    "${current_dir}/secrets/notes-facebook-app-secret.txt"
+    "${current_dir}/secrets/notes-facebook-csrf-token-jwt-secret.txt"
+    "${current_dir}/secrets/notes-frontend-server-public-key.txt"
+    "${current_dir}/secrets/notes-cookie-secret.txt"
+    "${current_dir}/secrets/notes-frontend-server-auth-private-key.txt"
+    "${current_dir}/secrets/notes-frontend-server-auth-passphrase.txt"
+    "${current_dir}/secrets/notes-pgadmin-default-email.txt"
+    "${current_dir}/secrets/notes-pgadmin-default-password.txt"
+    "${current_dir}/secrets/notes-nginx-certificate.pem"
+    "${current_dir}/secrets/notes-nginx-certificate-key.pem"
 )
 
-for item in "${secrets_file_paths[@]}"
+for item in "${docker_secrets_file_paths[@]}"
 do
     if [ ! -f $item ] || \
         [ ! -s $item ]; then
@@ -56,9 +56,9 @@ docker network create -d overlay notes-nginx-reversive-proxy
 docker network create -d overlay notes-backend
 docker network create -d overlay notes-notes-db
 
-for (( i=0; i<${#secrets_names[@]}; i++ ));
+for (( i=0; i<${#docker_secrets_names[@]}; i++ ));
 do
-    docker create ${secrets_names[i]} ${secrets_file_paths[i]}
+    docker create ${docker_secrets_names[$i]} ${docker_secrets_file_paths[$i]}
 done
 
 "${current_dir}"/create-swarm-notes-notes-db.sh
