@@ -50,7 +50,7 @@ jobs:
       run: |
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"   
-        json_output=$(npx lerna version --yes)
+        json_output=$(npx lerna version --json --yes)
         commands=$(NODE_NO_WARNINGS=1 node --loader ts-node/esm ./tools/createLernaPushCommand.ts "$json_output")
         eval "$commands"
 
