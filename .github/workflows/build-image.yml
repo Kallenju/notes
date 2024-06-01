@@ -2,8 +2,6 @@ name: Build image
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'backend@*'
       - 'frontend-server@*'
@@ -17,6 +15,8 @@ env:
 
 jobs:
   build-image:
+    if: github.ref == 'refs/heads/main'
+
     runs-on: ubuntu-latest
 
     env:
