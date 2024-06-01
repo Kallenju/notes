@@ -49,7 +49,7 @@ jobs:
         run: npm ci --workspaces=false
   
       - name: Create package specific package-lock.json
-        run: NODE_NO_WARNINGS=1 node --loader ts-node/esm ./tools/buildPackageLock.ts ${{ env.IMAGE_NAME }}
+        run: NODE_NO_WARNINGS=1 node --loader ts-node/esm ./tools/buildPackageLock.ts ${{ env.IMAGE_NAME }} force
   
       - name: Docker meta
         id: meta
