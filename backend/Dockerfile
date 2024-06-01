@@ -27,7 +27,7 @@ COPY --chown=node:node ./src/ /usr/app/backend/src/
 RUN npm run build
 
 FROM base as prod
-LABEL org.opencontainers.image.title="Notes Pet Backend" \
+LABEL org.opencontainers.image.title="Notes Backend" \
       org.opencontainers.image.description="Notes Backend" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \
       org.opencontainers.image.url="https://github.com/Kallenju/notes" \
