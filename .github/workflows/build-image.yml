@@ -44,6 +44,12 @@ jobs:
       
       - name: Display image name
         run: echo "Image name is ${{ env.IMAGE_NAME }}"
+        
+      - name: Instal root deps
+        run: npm ci --workspaces=false
+  
+      - name: Create package specific package-lock.json
+        run: NODE_NO_WARNINGS=1 node --loader ts-node/esm ./tools/buildPackageLock.ts ${{ env.IMAGE_NAME }}
   
       - name: Docker meta
         id: meta
