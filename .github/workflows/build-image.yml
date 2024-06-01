@@ -42,6 +42,12 @@ jobs:
       
       - name: Display image name
         run: echo "Image name is ${{ env.IMAGE_NAME }}"
+
+      - name: Use Node.js 20.13.1
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.13.1
+          cache: 'npm'
         
       - name: Instal root deps
         run: npm ci --workspaces=false
@@ -55,10 +61,10 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            notes-${{ env.IMAGE_NAME }}            
+            ${{ secrets.DOCKERHUB_USERNAME }}/notes-${{ env.IMAGE_NAME }}            
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=match,pattern=${{ env.IMAGE_NAME }}@(\d.\d.\d),group=1
+            type=match,pattern=${{ env.IMAGE_NAME }}@(\d+\.\d+\.\d+),group=1
           flavor: |
             latest=true
 
