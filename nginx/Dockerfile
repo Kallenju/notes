@@ -1,5 +1,5 @@
 FROM nginx:1.25.3-alpine-slim as base
-LABEL org.opencontainers.image.title="Notes Nginx" \
+LABEL org.opencontainers.image.title="Notes Pet Nginx" \
       org.opencontainers.image.description="Notes Nginx" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \
       org.opencontainers.image.url="https://github.com/Kallenju/notes" \
