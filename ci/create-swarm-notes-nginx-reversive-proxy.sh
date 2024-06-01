@@ -9,6 +9,8 @@ docker service create \
     --stop-grace-period 20s \
     --init \
     --restart-condition any \
+    --secret notes-nginx-certificate \
+    --secret notes-nginx-certificate-key \
     --publish published=80,target=80,protocol=tcp,mode=host \
     --publish published=5050,target=5050,protocol=tcp,mode=host \
     --publish published=9929,target=9929,protocol=tcp,mode=host \

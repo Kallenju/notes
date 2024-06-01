@@ -10,8 +10,8 @@ docker service create \
     --env POSTGRES_USER=postgres \
     --env POSTGRES_PORT=5432 \
     --env POSTGRES_HOST=0.0.0.0 \
-    --secret source=notes-notes-db-postgres-passwd,target=notes-notes-db-postgres-passwd \
-    --mount type=volume,source=notes-db-data,target=//var/lib/postgresql/data/,readonly=false \
+    --secret notes-notes-db-postgres-passwd \
+    --mount type=volume,source=notes-db-data,target=/var/lib/postgresql/data/,readonly=false \
     --network notes-notes-db \
     --stop-signal SIGTERM \
     --stop-grace-period 20s \
