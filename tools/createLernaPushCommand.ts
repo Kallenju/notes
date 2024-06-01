@@ -1,4 +1,4 @@
-const entitiesForPushTags: Array<{ name: string; newVersion: string }> = JSON.parse(process.argv[1]);
+const entitiesForPushTags: Array<{ name: string; newVersion: string }> = JSON.parse(process.argv[2]);
 
 if (!entitiesForPushTags || !Array.isArray(entitiesForPushTags)) {
     throw new Error("Wrong Lerna output");
