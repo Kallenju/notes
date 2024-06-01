@@ -32,5 +32,7 @@ LABEL org.opencontainers.image.title="Notes Pet Frontend" \
       org.opencontainers.image.documentation="https://github.com/Kallenju/notes" \
       org.opencontainers.image.source="https://github.com/Kallenju/notes"
 WORKDIR /usr/app/frontend/
+COPY --chown=node:node ./views/ /usr/app/frontend/views/
 COPY --chown=node:node --from=production-build /usr/app/frontend/public/ /usr/app/frontend/public/
-VOLUME /usr/app/frontend/src/ /usr/app/frontend/public/
+VOLUME /usr/app/frontend/views/ /usr/app/frontend/public/
+CMD ["tail", "-f", "/dev/null"]

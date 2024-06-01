@@ -1,7 +1,6 @@
 .nx
 
-secrets
-secrets.txt
+real-secrets
 
 dist
 

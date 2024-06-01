@@ -11,7 +11,7 @@
       "allowBranch": "main",
       "push": false,
       "json": true,
-      "tagVersionSeparator": "-"
+      "tagVersionSeparator": "@"
     }
   }
 }

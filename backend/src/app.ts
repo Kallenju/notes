@@ -3,10 +3,10 @@ import type { Server } from 'http';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
+import { config } from './shared/config.js';
+
 import { errorHandler } from './middlewares/errorHandler.js';
 import { logging } from './middlewares/logging.js';
-
-import { config } from './shared/config.js';
 
 import { authRouter } from './routes/auth/index.js';
 import { notesRouter } from './routes/notes/index.js';

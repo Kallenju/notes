@@ -1,0 +1,19 @@
+const entitiesForPushTags: Array<{ name: string; newVersion: string }> = JSON.parse(process.argv[1]);
+
+if (!entitiesForPushTags || !Array.isArray(entitiesForPushTags)) {
+    throw new Error("Wrong Lerna output");
+}
+
+const sleep = 'sleep 10';
+
+const pushTagsCommands = entitiesForPushTags.map((entity, index) => {
+    const { name, newVersion } = entity;
+    const tag = `${name}@${newVersion}`;
+    const command = `git push origin ${tag}`;
+
+    return index === entitiesForPushTags.length - 1 ? command : `${command}; ${sleep}`;
+});
+
+process.stdout.write(
+    ['git push origin main --no-follow-tags; sleep 10', ...pushTagsCommands].join('; ')
+);
