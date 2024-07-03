@@ -1,4 +1,4 @@
-name: Publish Frontent
+name: Publish Frontend
 
 on:
   push:
@@ -73,9 +73,12 @@ jobs:
 
       - name: Upload public and views to a frontend bucket
         run: |
-          aws sts get-caller-identity
+          aws s3 sync . s3://${{ secrets.AWS_FRONTEND_BUCKET }} \
+            --exclude '*' \
+            --include './public/*' --include './views/*' \
+            --delete
 
-  restart-frontend-server:
+  restart-frontend-servers:
     runs-on: ubuntu-latest
 
     needs: [upload-frontend]
@@ -94,9 +97,9 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ECS_ARN }}
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_SSM_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Restart frontend-servers to serve new files
+      - name: Work in progress
         run: |
           aws sts get-caller-identity
