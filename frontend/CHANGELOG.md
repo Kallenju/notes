@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.19](https://github.com/Kallenju/notes/compare/frontend@1.0.18...frontend@1.0.19) (2024-07-03)
+
+**Note:** Version bump only for package frontend
+
+
+
+
+
 ## [1.0.18](https://github.com/Kallenju/notes/compare/frontend@1.0.17...frontend@1.0.18) (2024-07-03)
 
 **Note:** Version bump only for package frontend
