@@ -39,7 +39,7 @@ jobs:
         with:
           name: public-build
           path: |
-            ./public/
+            public/
           retention-days: 1
           if-no-files-found: error
 
@@ -69,7 +69,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: public-build
-          path: ./public/
+          path: |
+            public/
 
       - name: Upload public and views to a frontend bucket
         run: |
