@@ -1,4 +1,4 @@
-name: Build image
+name: Build and Publish Image
 
 on:
   push:
@@ -86,3 +86,29 @@ jobs:
           file: ./${{ env.IMAGE_NAME }}/Dockerfile
           context: ./${{ env.IMAGE_NAME }}
           target: prod
+
+  publish-image:
+    runs-on: ubuntu-latest
+
+    needs: [build-image]
+
+    permissions:
+      id-token: write
+      contents: read
+
+    env:
+      AWS_REGION: eu-central-1
+
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v4
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_SSM_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Work in progress
+        run: |
+          aws sts get-caller-identity
