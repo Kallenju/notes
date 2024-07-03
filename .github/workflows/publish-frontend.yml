@@ -74,9 +74,9 @@ jobs:
 
       - name: Upload public and views to a frontend bucket
         run: |
-          aws s3 sync . s3://${{ secrets.AWS_FRONTEND_BUCKET }} \
+          aws s3 sync frontend s3://${{ secrets.AWS_FRONTEND_BUCKET }} \
             --exclude '*' \
-            --include 'frontend/public/*' --include 'frontend/views/*' \
+            --include 'public/*' --include 'views/*' \
             --delete
 
   restart-frontend-servers:
