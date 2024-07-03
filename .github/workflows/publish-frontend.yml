@@ -39,7 +39,7 @@ jobs:
         with:
           name: public-build
           path: |
-            public/
+            frontend/public/
           retention-days: 1
           if-no-files-found: error
 
@@ -70,13 +70,13 @@ jobs:
         with:
           name: public-build
           path: |
-            public/
+            frontend/public/
 
       - name: Upload public and views to a frontend bucket
         run: |
           aws s3 sync . s3://${{ secrets.AWS_FRONTEND_BUCKET }} \
             --exclude '*' \
-            --include './public/*' --include './views/*' \
+            --include 'frontend/public/*' --include 'frontend/views/*' \
             --delete
 
   restart-frontend-servers:
