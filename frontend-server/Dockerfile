@@ -27,8 +27,9 @@ COPY --chown=node:node ./src/ /usr/app/frontend-server/src/
 RUN npm run build
 
 FROM base AS prod
-USER node
+USER root
 RUN mkdir -p /usr/app/frontend/ && chown -R node:node /usr/app/frontend/
+USER node
 LABEL org.opencontainers.image.title="Notes Frontend Server" \
       org.opencontainers.image.description="Notes Frontend Server" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \
