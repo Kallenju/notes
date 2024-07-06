@@ -5,6 +5,7 @@ const BASE_FRONTEND_PATH = resolve(
   dirname(fileURLToPath(import.meta.url)),
   '..',
   '..',
+  '..',
   'frontend',
 );
 

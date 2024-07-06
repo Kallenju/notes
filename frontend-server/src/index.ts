@@ -1,13 +1,16 @@
 import { startServer } from './app.js';
 import { backend } from './services/backend.js';
+import { fetchAndCacheFiles } from './services/fetchAndCacheAssets.js';
 import { closeGracefully } from './shared/closeGracefully.js';
 import { logger } from './services/logger.js';
 
 process.on('SIGINT', () => closeGracefully('SIGINT'));
 process.on('SIGTERM', () => closeGracefully('SIGTERM'));
 
-backend
-  .startConnectionWithBackend()
+fetchAndCacheFiles()
+  .then(async () => {
+    await backend.startConnectionWithBackend();
+  })
   .then(() => {
     startServer();
   })
