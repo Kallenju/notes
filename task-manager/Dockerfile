@@ -1,4 +1,4 @@
-FROM alpine:3.19.1 as base
+FROM alpine:3.19.1 AS base
 USER root
 RUN apk update \
     && apk add --no-cache postgresql-client logrotate \
@@ -22,11 +22,11 @@ VOLUME /var/log/cron/ /var/opt/pgbackups/
 HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s --retries=5 \
     CMD ps aux | grep crond | grep -v grep || exit 1
 
-FROM base as dev
+FROM base AS dev
 COPY --chown=task-manager:task-manager ./.development.env /home/task-manager/tasks/environment
 ENTRYPOINT ["crond", "-f", "-d", "8", "-l", "8", "-L", "/var/log/cron/cron.log"]
 
-FROM base as prod
+FROM base AS prod
 LABEL org.opencontainers.image.title="Notes Task Manager" \
       org.opencontainers.image.description="Notes Task Manager" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \

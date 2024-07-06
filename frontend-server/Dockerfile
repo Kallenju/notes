@@ -2,9 +2,9 @@
 
 ARG NODE_VERSION=20.13.1
 
-FROM node:${NODE_VERSION}-alpine as base
+FROM node:${NODE_VERSION}-alpine AS base
 
-FROM base as dev
+FROM base AS dev
 WORKDIR /usr/app/frontend-server/
 COPY package.json package-lock.json /usr/app/frontend-server/
 RUN npm ci
@@ -26,7 +26,8 @@ COPY --chown=node:node .swcrc  tsconfig.json /usr/app/frontend-server/
 COPY --chown=node:node ./src/ /usr/app/frontend-server/src/
 RUN npm run build
 
-FROM base as prod
+FROM base AS prod
+USER node
 Run mkdir -p /usr/app/frontend/ \
     && chown -R node:node /usr/app/frontend/ \
 LABEL org.opencontainers.image.title="Notes Frontend Server" \

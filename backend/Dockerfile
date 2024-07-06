@@ -2,9 +2,9 @@
 
 ARG NODE_VERSION=20.13.1
 
-FROM node:${NODE_VERSION}-alpine as base
+FROM node:${NODE_VERSION}-alpine AS base
 
-FROM base as dev
+FROM base AS dev
 WORKDIR /usr/app/backend/
 COPY package.json package-lock.json /usr/app/backend/
 RUN npm ci
@@ -26,7 +26,8 @@ COPY --chown=node:node .swcrc tsconfig.json /usr/app/backend/
 COPY --chown=node:node ./src/ /usr/app/backend/src/
 RUN npm run build
 
-FROM base as prod
+FROM base AS prod
+USER node
 LABEL org.opencontainers.image.title="Notes Backend" \
       org.opencontainers.image.description="Notes Backend" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \
