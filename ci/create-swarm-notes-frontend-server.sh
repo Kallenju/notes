@@ -11,6 +11,8 @@ docker service create \
     --env AUTH_PASSPHRASE=/run/secrets/notes-frontend-server-auth-passphrase \
     --env BACKEND_URL=http://swarm-notes-backend:3000 \
     --env BACKEND_TOKEN=initial \
+    --env AWS_FRONTEND_BUCKET_ARN=/run/secrets/notes-aws-frontend-bucket-arn-frontend-server \
+    --env AWS_FRONTEND_BUCKET=/run/secrets/notes-aws-frontend-bucket \
     --secret notes-frontend-server-auth-private-key \
     --secret notes-frontend-server-auth-passphrase \
     --stop-signal SIGTERM \

@@ -7,7 +7,7 @@ import helmet from 'helmet';
 
 import { errorHandler } from './middlewares/errorHandler.js';
 
-import { BASE_FRONTEND_PATH } from './types.js';
+import { BASE_FRONTEND_PATH } from './shared/constants.js';
 import { config } from './shared/config.js';
 import { logger } from './services/logger.js';
 

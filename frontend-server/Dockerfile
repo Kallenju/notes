@@ -27,6 +27,8 @@ COPY --chown=node:node ./src/ /usr/app/frontend-server/src/
 RUN npm run build
 
 FROM base as prod
+Run mkdir -p /usr/app/frontend/ \
+    && chown -R node:node /usr/app/frontend/ \
 LABEL org.opencontainers.image.title="Notes Frontend Server" \
       org.opencontainers.image.description="Notes Frontend Server" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \
@@ -43,3 +45,5 @@ STOPSIGNAL SIGTERM
 HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s --retries=5 \
   CMD wget --no-verbose --tries=1 --spider http://0.0.0.0:3000/healthcheck || exit 1
 CMD ["node", "./dist/index.js"]
+
+

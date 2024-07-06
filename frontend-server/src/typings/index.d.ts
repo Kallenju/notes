@@ -14,6 +14,8 @@ declare global {
       BACKEND_TOKEN: string;
       AUTH_PRIVATE_KEY: string;
       AUTH_PASSPHRASE: string;
+      AWS_FRONTEND_BUCKET: string;
+      AWS_FRONTEND_BUCKET_ARN: string;
     }
   }
 

@@ -4,6 +4,8 @@ module.exports = {
     es2024: true,
   },
 
+  root: true,
+
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',

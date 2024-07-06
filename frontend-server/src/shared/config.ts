@@ -11,13 +11,24 @@ const config =
         AUTH_ALGORITHM: 'RS256',
         BACKEND_URL: process.env.BACKEND_URL,
         BACKEND_TOKEN: process.env.BACKEND_TOKEN,
+        AWS_FRONTEND_BUCKET: process.env.AWS_FRONTEND_BUCKET,
+        AWS_FRONTEND_BUCKET_ARN: process.env.AWS_FRONTEND_BUCKET_ARN,
       } as const satisfies typeof process.env)
     : await (async () => {
         try {
-          const [AUTH_PRIVATE_KEY, AUTH_PASSPHRASE] = await Promise.all(
-            [process.env.AUTH_PRIVATE_KEY, process.env.AUTH_PASSPHRASE].map(
-              async (secretPath) =>
-                fs.readFile(path.normalize(secretPath), { encoding: 'utf8' }),
+          const [
+            AUTH_PRIVATE_KEY,
+            AUTH_PASSPHRASE,
+            AWS_FRONTEND_BUCKET,
+            AWS_FRONTEND_BUCKET_ARN,
+          ] = await Promise.all(
+            [
+              process.env.AUTH_PRIVATE_KEY,
+              process.env.AUTH_PASSPHRASE,
+              process.env.AWS_FRONTEND_BUCKET,
+              process.env.AWS_FRONTEND_BUCKET_ARN,
+            ].map(async (secretPath) =>
+              fs.readFile(path.normalize(secretPath), { encoding: 'utf8' }),
             ),
           );
 
@@ -29,6 +40,8 @@ const config =
             AUTH_ALGORITHM: 'RS256',
             BACKEND_URL: process.env.BACKEND_URL,
             BACKEND_TOKEN: process.env.BACKEND_TOKEN,
+            AWS_FRONTEND_BUCKET,
+            AWS_FRONTEND_BUCKET_ARN,
           } as const satisfies typeof process.env;
         } catch (error) {
           if (error instanceof Error) {
