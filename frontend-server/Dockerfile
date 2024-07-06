@@ -28,8 +28,7 @@ RUN npm run build
 
 FROM base AS prod
 USER node
-Run mkdir -p /usr/app/frontend/ \
-    && chown -R node:node /usr/app/frontend/ \
+RUN mkdir -p /usr/app/frontend/ && chown -R node:node /usr/app/frontend/
 LABEL org.opencontainers.image.title="Notes Frontend Server" \
       org.opencontainers.image.description="Notes Frontend Server" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \
