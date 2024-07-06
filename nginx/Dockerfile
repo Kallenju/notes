@@ -1,4 +1,4 @@
-FROM nginx:1.25.3-alpine-slim as base
+FROM nginx:1.25.3-alpine-slim AS base
 LABEL org.opencontainers.image.title="Notes Nginx" \
       org.opencontainers.image.description="Notes Nginx" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \
@@ -12,9 +12,9 @@ HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s 
     CMD ps aux | grep nginx | grep -v grep || exit 1
 STOPSIGNAL SIGTERM
 
-FROM base as dev
+FROM base AS dev
 VOLUME /etc/nginx/nginx.conf /etc/logrotate.d/nginx /var/log/nginx/
 
-FROM base as prod
+FROM base AS prod
 COPY ./nginx.prod.conf /etc/nginx/nginx.conf
 VOLUME /var/log/nginx/

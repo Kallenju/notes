@@ -1,13 +1,13 @@
-FROM dpage/pgadmin4:8.3 as base
+FROM dpage/pgadmin4:8.3 AS base
 STOPSIGNAL SIGTERM
 EXPOSE 5050/tcp
 HEALTHCHECK --interval=360s --timeout=3s --start-period=20s --start-interval=1s --retries=5 \
     CMD wget --no-verbose --tries=1 --spider http://0.0.0.0:80/misc/ping || exit 1
 
-FROM dpage/pgadmin4:8.3 as dev
+FROM dpage/pgadmin4:8.3 AS dev
 VOLUME /pgadmin4/servers.json
 
-FROM dpage/pgadmin4:8.3 as prod
+FROM dpage/pgadmin4:8.3 AS prod
 LABEL org.opencontainers.image.title="Notes pgAdmin4" \
       org.opencontainers.image.description="Notes pgAdmin4" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \

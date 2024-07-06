@@ -2,7 +2,7 @@
 
 ARG NODE_VERSION=20.13.1
 
-FROM node:${NODE_VERSION}-alpine as base
+FROM node:${NODE_VERSION}-alpine AS base
 
 FROM base as dev
 WORKDIR /usr/app/frontend/
@@ -24,7 +24,7 @@ COPY --chown=node:node rollup.config.js babel.config.js nodemon.docker.json /usr
 COPY --chown=node:node ./src/ /usr/app/frontend/src/
 RUN npm run build
 
-FROM base as prod
+FROM base AS prod
 LABEL org.opencontainers.image.title="Notes Dev Frontend" \
       org.opencontainers.image.description="Notes Frontend" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \
