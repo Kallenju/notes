@@ -19,8 +19,7 @@ docker service create \
     --stop-grace-period 20s \
     --init \
     --restart-condition any \
-    --mount type=volume,source=notes-frontend-public,target=//usr/app/frontend/public/,readonly=true \
-    --mount type=volume,source=notes-frontend-views,target=//usr/app/frontend/views/,readonly=true \
+    --mount type=bind,source=//var/log/frontend-server/,target=//var/log/frontend-server/,readonly=false \
     --network notes-nginx-reversive-proxy \
     --network notes-backend \
     kallenju/notes-frontend-server:latest

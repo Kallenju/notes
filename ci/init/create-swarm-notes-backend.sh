@@ -36,6 +36,7 @@ docker service create \
     --stop-grace-period 20s \
     --init \
     --restart-condition any \
+    --mount type=bind,source=//var/log/backend/,target=//var/log/backend/,readonly=false \
     --network notes-nginx-reversive-proxy \
     --network notes-backend \
     --network notes-notes-db \

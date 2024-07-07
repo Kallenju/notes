@@ -17,6 +17,7 @@ docker service create \
     --stop-grace-period 20s \
     --init \
     --restart-condition any \
+    --mount type=bind,source=//var/log/task-manager/,target=//var/log/cron/,readonly=false \
     --network notes-backend \
     --network notes-notes-db \
     kallenju/notes-task-manager:latest

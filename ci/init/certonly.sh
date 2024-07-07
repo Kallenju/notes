@@ -5,9 +5,9 @@ set -e
 current_dir="$(cd "$(dirname "$0")" && pwd)"
 
 secrets_file_paths=(
-    "${current_dir}/secrets/notes-cert-aws-access-key-id.txt"
-    "${current_dir}/secrets/notes-cert-aws-secret-access-key.txt"
-    "${current_dir}/secrets/notes-cert-domain.txt"
+    "${current_dir}/../secrets/notes-cert-aws-access-key-id.txt"
+    "${current_dir}/../secrets/notes-cert-aws-secret-access-key.txt"
+    "${current_dir}/../secrets/notes-cert-domain.txt"
 )
 
 for item in "${docker_secrets_file_paths[@]}"
