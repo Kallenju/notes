@@ -5,6 +5,7 @@ set -e
 docker service create \
     --replicas 1 \
     --name swarm-notes-frontend-server \
+    --constraint 'node.labels.notes == other' \
     --env NODE_ENV=production \
     --env PORT=3000 \
     --env AUTH_PRIVATE_KEY=/run/secrets/notes-frontend-server-auth-private-key \

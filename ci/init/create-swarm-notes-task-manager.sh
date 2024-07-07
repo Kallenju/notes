@@ -5,6 +5,7 @@ set -e
 docker service create \
     --replicas 1 \
     --name swarm-notes-task-manager \
+    --constraint 'node.labels.notes == other' \
     --env PRODUCTION=true \
     --env BACKUP_KEEP_DAYS=1 \
     --env NOTES_POSTGRES_PASSWORD=/run/secrets/notes-notes-db-postgres-passwd \

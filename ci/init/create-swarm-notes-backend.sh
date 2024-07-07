@@ -5,6 +5,7 @@ set -e
 docker service create \
     --replicas 1 \
     --name swarm-notes-backend \
+    --constraint 'node.labels.notes == other' \
     --env NODE_ENV=production \
     --env PORT=3000 \
     --env ACCESS_TOKEN_JWT_SECRET=/run/secrets/notes-access-token-jwt-secret \
