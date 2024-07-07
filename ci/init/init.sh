@@ -2,6 +2,11 @@
 
 set -e
 
+mkdir -p /var/log/backend
+mkdir -p /var/log/frontend-server
+mkdir -p /var/log/nginx
+mkdir -p /var/log/task-manager
+
 current_dir="$(cd "$(dirname "$0")" && pwd)"
 
 docker_secrets_names=(
