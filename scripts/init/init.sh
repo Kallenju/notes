@@ -26,8 +26,8 @@ docker_secrets_names=(
     "notes-frontend-server-auth-passphrase"
     "notes-pgadmin-default-email"
     "notes-pgadmin-default-password"
-    "notes-nginx-certificate"
-    "notes-nginx-certificate-key"
+    "notes-nginx-certificate.pem"
+    "notes-nginx-certificate-key.pem"
 )
 
 docker_secrets_file_paths=(
