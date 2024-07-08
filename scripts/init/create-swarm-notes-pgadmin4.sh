@@ -5,6 +5,7 @@ set -e
 docker service create \
     --replicas 1 \
     --name swarm-notes-pgadmin4 \
+    --constraint 'node.labels.notes == other' \
     --env PGADMIN_DEFAULT_EMAIL=kostyasolovyov54@gmail.com \
     --env PGADMIN_DEFAULT_PASSWORD_FILE=/run/secrets/notes-pgadmin-default-password \
     --secret notes-pgadmin-default-password \

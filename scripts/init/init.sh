@@ -2,6 +2,11 @@
 
 set -e
 
+mkdir -p /var/log/backend
+mkdir -p /var/log/frontend-server
+mkdir -p /var/log/nginx
+mkdir -p /var/log/task-manager
+
 current_dir="$(cd "$(dirname "$0")" && pwd)"
 
 docker_secrets_names=(
@@ -26,24 +31,24 @@ docker_secrets_names=(
 )
 
 docker_secrets_file_paths=(
-    "${current_dir}/secrets/notes-aws-frontend-bucket.txt"
-    "${current_dir}/secrets/notes-aws-frontend-bucket-arn-frontend-server.txt"
-    "${current_dir}/secrets/notes-notes-db-postgres-passwd.txt"
-    "${current_dir}/secrets/notes-access-token-jwt-secret.txt"
-    "${current_dir}/secrets/notes-microservice-token-jwt-secret.txt"
-    "${current_dir}/secrets/notes-google-client-id.txt"
-    "${current_dir}/secrets/notes-google-csrf-token-jwt-secret.txt"
-    "${current_dir}/secrets/notes-facebook-app-id.txt"
-    "${current_dir}/secrets/notes-facebook-app-secret.txt"
-    "${current_dir}/secrets/notes-facebook-csrf-token-jwt-secret.txt"
-    "${current_dir}/secrets/notes-frontend-server-public-key.txt"
-    "${current_dir}/secrets/notes-cookie-secret.txt"
-    "${current_dir}/secrets/notes-frontend-server-auth-private-key.txt"
-    "${current_dir}/secrets/notes-frontend-server-auth-passphrase.txt"
-    "${current_dir}/secrets/notes-pgadmin-default-email.txt"
-    "${current_dir}/secrets/notes-pgadmin-default-password.txt"
-    "${current_dir}/secrets/notes-nginx-certificate.pem"
-    "${current_dir}/secrets/notes-nginx-certificate-key.pem"
+    "${current_dir}/../secrets/notes-aws-frontend-bucket.txt"
+    "${current_dir}/../secrets/notes-aws-frontend-bucket-arn-frontend-server.txt"
+    "${current_dir}/../secrets/notes-notes-db-postgres-passwd.txt"
+    "${current_dir}/../secrets/notes-access-token-jwt-secret.txt"
+    "${current_dir}/../secrets/notes-microservice-token-jwt-secret.txt"
+    "${current_dir}/../secrets/notes-google-client-id.txt"
+    "${current_dir}/../secrets/notes-google-csrf-token-jwt-secret.txt"
+    "${current_dir}/../secrets/notes-facebook-app-id.txt"
+    "${current_dir}/../secrets/notes-facebook-app-secret.txt"
+    "${current_dir}/../secrets/notes-facebook-csrf-token-jwt-secret.txt"
+    "${current_dir}/../secrets/notes-frontend-server-public-key.txt"
+    "${current_dir}/../secrets/notes-cookie-secret.txt"
+    "${current_dir}/../secrets/notes-frontend-server-auth-private-key.txt"
+    "${current_dir}/../secrets/notes-frontend-server-auth-passphrase.txt"
+    "${current_dir}/../secrets/notes-pgadmin-default-email.txt"
+    "${current_dir}/../secrets/notes-pgadmin-default-password.txt"
+    "${current_dir}/../secrets/notes-nginx-certificate.pem"
+    "${current_dir}/../secrets/notes-nginx-certificate-key.pem"
 )
 
 for item in "${docker_secrets_file_paths[@]}"
@@ -55,7 +60,6 @@ do
     fi
 done
 
-docker swarm init
 docker network create -d overlay notes-nginx-reversive-proxy
 docker network create -d overlay notes-backend
 docker network create -d overlay notes-notes-db

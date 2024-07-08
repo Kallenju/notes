@@ -5,6 +5,7 @@ set -e
 docker service create \
     --replicas 1 \
     --name swarm-notes-backend \
+    --constraint 'node.labels.notes == other' \
     --env NODE_ENV=production \
     --env PORT=3000 \
     --env ACCESS_TOKEN_JWT_SECRET=/run/secrets/notes-access-token-jwt-secret \
@@ -36,6 +37,7 @@ docker service create \
     --stop-grace-period 20s \
     --init \
     --restart-condition any \
+    --mount type=bind,source=//var/log/backend/,target=//var/log/backend/,readonly=false \
     --network notes-nginx-reversive-proxy \
     --network notes-backend \
     --network notes-notes-db \

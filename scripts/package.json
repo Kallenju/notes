@@ -1,0 +1,26 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "scripts",
+  "keywords": [
+    "scripts",
+    "notes"
+  ],
+  "homepage": "https://github.com/Kallenju/notes/tree/main/scripts#readme",
+  "bugs": {
+    "url": "https://github.com/Kallenju/notes/tree/main/scripts/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Kallenju/notes/tree/main/scripts.git"
+  },
+  "author": {
+    "name": "Konstantin Solovev",
+    "email": "kostyasolovyov54@gmail.com",
+    "web": "https://github.com/Kallenju"
+  },
+  "scripts": {
+    "check": "echo 'scripts pass' || exit 1",
+    "build": "echo 'scripts pass' || exit 1"
+  }
+}

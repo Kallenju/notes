@@ -5,12 +5,14 @@ set -e
 docker service create \
     --replicas 1 \
     --name swarm-notes-notes-db \
+    --constraint 'node.labels.notes == db' \
     --env POSTGRES_PASSWORD_FILE=/run/secrets/notes-notes-db-postgres-passwd \
     --env POSTGRES_DB=notes \
     --env POSTGRES_USER=postgres \
     --env POSTGRES_PORT=5432 \
     --env POSTGRES_HOST=0.0.0.0 \
     --secret notes-notes-db-postgres-passwd \
+    --mount type=bind,source=//var/log/postgres/,target=//var/log/postgres/,readonly=false \
     --mount type=volume,source=notes-db-data,target=/var/lib/postgresql/data/,readonly=false \
     --network notes-notes-db \
     --stop-signal SIGTERM \

@@ -4,6 +4,8 @@ real-secrets
 
 dist
 
+admin-commands
+
 # Logs
 log
 logs
