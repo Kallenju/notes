@@ -109,6 +109,11 @@ jobs:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE_SSM_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Work in progress
+      - name: Update Container
         run: |
-          aws sts get-caller-identity
+          aws ssm send-command \
+            --document-name "${{ secrets.AWS_DEPLOY_DOCUMENT_NAME }}" \
+            --targets "Key=instanceIds,Values=${{ secrets.AWS_DEPLOY_INSTANCES }}" \
+            --parameters "${{ secrets.AWS_DEPLOY_DOCUMENT_PARAMETER }}=update-swarm-notes-${{ env.IMAGE_NAME }}.sh" \
+            --region ${{ env.AWS_REGION }}
+            --comment "Update ${{ env.IMAGE_NAME }} container due to image update"
