@@ -97,11 +97,18 @@ jobs:
       contents: read
 
     env:
+      IMAGE_NAME: 'IMAGE_NAME'
       AWS_REGION: eu-central-1
 
     steps:
       - name: Checkout 
         uses: actions/checkout@v4
+
+      - name: Extract image name
+        run: |
+          TAG=${{ github.ref_name }}
+          IMAGE_NAME=$(echo $TAG | sed 's/@.*//')
+          echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
 
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4

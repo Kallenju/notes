@@ -4,7 +4,7 @@ set -e
 
 docker service create \
     --name swarm-notes-nginx-reversive-proxy \
-    --constraint 'node.labels.notes == other' \
+    --constraint 'node.labels.notes == nginx' \
     --mode global \
     --stop-signal SIGTERM \
     --stop-grace-period 20s \
