@@ -20,7 +20,7 @@ docker service create \
     --stop-grace-period 20s \
     --init \
     --restart-condition any \
-    --mount type=bind,source=//var/log/frontend-server/,target=//var/log/frontend-server/,readonly=false \
+    --mount type=bind,source=//home/ec2-user/frontend-server/log/,target=//var/log/frontend-server/,readonly=false \
     --network notes-nginx-reversive-proxy \
     --network notes-backend \
     kallenju/notes-frontend-server:latest
