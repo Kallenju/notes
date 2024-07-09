@@ -2,8 +2,6 @@
 
 set -e
 
-mkdir -p /var/log/task-manager
-
 current_dir="$(cd "$(dirname "$0")" && pwd)"
 
 docker_secrets_names=(
