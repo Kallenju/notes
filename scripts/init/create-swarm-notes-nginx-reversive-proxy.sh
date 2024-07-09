@@ -16,6 +16,6 @@ docker service create \
     --publish published=5050,target=5050,protocol=tcp,mode=host \
     --publish published=9929,target=9929,protocol=tcp,mode=host \
     --publish published=9928,target=9928,protocol=tcp,mode=host \
-    --mount type=bind,source=//home/ec2-user/nginx/log/,target=//var/log/nginx/,readonly=false \
+    --mount type=volume,source=notes-nginx-logs,target=//var/log/nginx/,readonly=false \
     --network notes-nginx-reversive-proxy \
     kallenju/notes-nginx:latest

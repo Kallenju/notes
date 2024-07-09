@@ -12,7 +12,7 @@ docker service create \
     --env POSTGRES_PORT=5432 \
     --env POSTGRES_HOST=0.0.0.0 \
     --secret notes-notes-db-postgres-passwd \
-    --mount type=bind,source=//home/ec2-user/notes-db/log/,target=//var/log/postgres/,readonly=false \
+    --mount type=volume,source=notes-db-logs,target=//var/log/postgres/,readonly=false \
     --mount type=volume,source=notes-db-data,target=//var/lib/postgresql/data/,readonly=false \
     --network notes-notes-db \
     --stop-signal SIGTERM \
