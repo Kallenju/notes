@@ -16,6 +16,8 @@ docker service create \
     --env AWS_FRONTEND_BUCKET=/run/secrets/notes-aws-frontend-bucket \
     --secret notes-frontend-server-auth-private-key \
     --secret notes-frontend-server-auth-passphrase \
+    --secret notes-aws-frontend-bucket-arn-frontend-server \
+    --secret notes-aws-frontend-bucket \
     --stop-signal SIGTERM \
     --stop-grace-period 20s \
     --init \
