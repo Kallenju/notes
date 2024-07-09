@@ -1,4 +1,7 @@
 FROM nginx:1.25.3-alpine-slim AS base
+RUN mkdir -p /var/log/nginx/ \
+    && chown -R nginx:101 /var/log/nginx/
+VOLUME /var/log/nginx/
 LABEL org.opencontainers.image.title="Notes Nginx" \
       org.opencontainers.image.description="Notes Nginx" \
       org.opencontainers.image.authors="https://github.com/Kallenju" \
@@ -16,5 +19,4 @@ FROM base AS dev
 VOLUME /etc/nginx/nginx.conf /etc/logrotate.d/nginx /var/log/nginx/
 
 FROM base AS prod
-COPY ./nginx.prod.conf /etc/nginx/nginx.conf
-VOLUME /var/log/nginx/
+COPY --chown=nginx:101 ./nginx.prod.conf /etc/nginx/nginx.conf

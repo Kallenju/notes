@@ -1,5 +1,5 @@
 FROM postgres:16.2-alpine AS base
-VOLUME /var/log/postgresql/ /var/lib/postgresql/data/
+VOLUME /var/log/postgres/ /var/lib/postgresql/data/
 STOPSIGNAL SIGTERM
 RUN mkdir -p /var/log/postgres/ \
     && touch /var/log/postgres/postgresql.log \
