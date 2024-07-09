@@ -3,6 +3,9 @@
 ARG NODE_VERSION=20.13.1
 
 FROM node:${NODE_VERSION}-alpine AS base
+RUN mkdir -p /var/log/backend/ \
+    && chown -R node:node /var/log/backend/
+VOLUME /var/log/backend/
 
 FROM base AS dev
 WORKDIR /usr/app/backend/
@@ -38,7 +41,6 @@ WORKDIR /usr/app/backend/
 COPY --chown=node:node package.json /usr/app/backend/
 COPY --chown=node:node --from=production-build /usr/app/backend/node_modules/ /usr/app/backend/node_modules/
 COPY --chown=node:node --from=production-build /usr/app/backend/dist/ /usr/app/backend/dist/
-VOLUME /var/log/backend/
 EXPOSE 3000/tcp 9929/tcp
 STOPSIGNAL SIGTERM
 HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s --retries=5 \
