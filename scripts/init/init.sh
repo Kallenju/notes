@@ -61,7 +61,7 @@ docker network create -d overlay notes-notes-db
 
 for (( i=0; i<${#docker_secrets_names[@]}; i++ ));
 do
-    docker create ${docker_secrets_names[$i]} ${docker_secrets_file_paths[$i]}
+    docker secret create ${docker_secrets_names[$i]} ${docker_secrets_file_paths[$i]}
 done
 
 "${current_dir}"/create-swarm-notes-notes-db.sh
