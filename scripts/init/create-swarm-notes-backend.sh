@@ -37,7 +37,7 @@ docker service create \
     --stop-grace-period 20s \
     --init \
     --restart-condition any \
-    --mount type=bind,source=//home/ec2-user/backend/log/,target=//var/log/backend/,readonly=false \
+    --mount type=volume,source=notes-backend-logs,target=//var/log/backend/,readonly=false \
     --network notes-nginx-reversive-proxy \
     --network notes-backend \
     --network notes-notes-db \
