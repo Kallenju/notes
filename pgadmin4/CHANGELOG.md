@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.16](https://github.com/Kallenju/notes/compare/pgadmin4@1.0.15...pgadmin4@1.0.16) (2024-07-14)
+
+**Note:** Version bump only for package pgadmin4
+
 ## [1.0.15](https://github.com/Kallenju/notes/compare/pgadmin4@1.0.14...pgadmin4@1.0.15) (2024-07-06)
 
 **Note:** Version bump only for package pgadmin4
