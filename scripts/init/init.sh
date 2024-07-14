@@ -40,8 +40,6 @@ docker_secrets_file_paths=(
     "${current_dir}/../secrets/notes-cookie-secret.txt"
     "${current_dir}/../secrets/notes-frontend-server-auth-private-key.txt"
     "${current_dir}/../secrets/notes-frontend-server-auth-passphrase.txt"
-    "${current_dir}/../secrets/notes-pgadmin-default-email.txt"
-    "${current_dir}/../secrets/notes-pgadmin-default-password.txt"
     "${current_dir}/../secrets/notes-nginx-certificate.pem"
     "${current_dir}/../secrets/notes-nginx-certificate-key.pem"
 )
