@@ -6,7 +6,7 @@ docker service create \
     --replicas 1 \
     --name swarm-notes-notes-db \
     --constraint 'node.labels.notes == db' \
-    --env POSTGRES_PASSWORD_FILE=/run/secrets/notes-notes-db-postgres-passwd \
+    --env POSTGRES_PASSWORD_FILE=//run/secrets/notes-notes-db-postgres-passwd \
     --env POSTGRES_DB=notes \
     --env POSTGRES_USER=postgres \
     --env POSTGRES_PORT=5432 \
