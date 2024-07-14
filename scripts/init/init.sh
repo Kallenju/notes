@@ -63,10 +63,3 @@ for (( i=0; i<${#docker_secrets_names[@]}; i++ ));
 do
     docker secret create ${docker_secrets_names[$i]} ${docker_secrets_file_paths[$i]}
 done
-
-"${current_dir}"/create-swarm-notes-notes-db.sh
-"${current_dir}"/create-swarm-notes-backend.sh
-"${current_dir}"/create-swarm-notes-task-manager.sh
-"${current_dir}"/create-swarm-notes-pgadmin4.sh
-"${current_dir}"/create-swarm-notes-frontend-server.sh
-"${current_dir}"/create-swarm-notes-nginx-reversive-proxy.sh
