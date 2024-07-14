@@ -20,7 +20,6 @@ docker service create \
     --restart-condition any \
     --mount type=volume,source=notes-task-manager-logs,target=//var/log/cron/,readonly=false \
     --mount type=volume,source=notes-task-manager-pgbackups,target=//var/opt/pgbackups/,readonly=false \
-    /var/opt/pgbackups/
     --network notes-backend \
     --network notes-notes-db \
     kallenju/notes-task-manager:latest
