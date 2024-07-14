@@ -1,4 +1,4 @@
-if (process.argv[2] && !process.argv[2].includes('undefined')) {
+if (process.argv[2] && !process.argv[2].startsWith('undefined')) {
   const entitiesForPushTags: Array<{ name: string; newVersion: string }> =
     JSON.parse(process.argv[2]);
 
