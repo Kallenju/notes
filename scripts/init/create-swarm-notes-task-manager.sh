@@ -8,7 +8,7 @@ docker service create \
     --constraint 'node.labels.notes == other' \
     --env PRODUCTION=true \
     --env BACKUP_KEEP_DAYS=1 \
-    --env NOTES_POSTGRES_PASSWORD=/run/secrets/notes-notes-db-postgres-passwd \
+    --env NOTES_POSTGRES_PASSWORD=//run/secrets/notes-notes-db-postgres-passwd \
     --env NOTES_POSTGRES_DATABASE=notes \
     --env NOTES_POSTGRES_USER=postgres \
     --env NOTES_POSTGRES_HOST=swarm-notes-db \
