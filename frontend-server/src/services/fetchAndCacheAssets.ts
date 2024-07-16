@@ -20,6 +20,7 @@ const AWS_SESSION_NAME = 'frontend-server-download-assets' as const;
 const publicFolder = path.resolve(BASE_FRONTEND_PATH, 'public');
 const viewsFolder = path.resolve(BASE_FRONTEND_PATH, 'views');
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function getTemporaryCredentials() {
   const stsClient = new STSClient({ region: AWS_REGION });
   const assumeRoleCommand = new AssumeRoleCommand({
@@ -87,19 +88,12 @@ export async function fetchAndCacheFiles(): Promise<void> {
   let client: S3Client | null = null;
 
   try {
-    const cleanFrontendFolder = Promise.all([
+    await Promise.all([
       fs.rm(publicFolder, { recursive: true, force: true }),
       fs.rm(viewsFolder, { recursive: true, force: true }),
     ]);
 
-    const credentialsPromise = getTemporaryCredentials();
-
-    const [, credentials] = await Promise.all([
-      cleanFrontendFolder,
-      credentialsPromise,
-    ]);
-
-    client = new S3Client({ region: AWS_REGION, credentials });
+    client = new S3Client({ region: AWS_REGION });
 
     const listObjectsResponse = await client.send(
       new ListObjectsV2Command({
