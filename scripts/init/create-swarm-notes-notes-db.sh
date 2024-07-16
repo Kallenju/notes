@@ -8,7 +8,6 @@ docker service create \
     --constraint 'node.labels.notes == db' \
     --env POSTGRES_PASSWORD_FILE=//run/secrets/notes-notes-db-postgres-passwd \
     --env POSTGRES_DB=notes \
-    --env POSTGRES_USER=postgres \
     --env POSTGRES_PORT=5432 \
     --env POSTGRES_HOST=0.0.0.0 \
     --secret notes-notes-db-postgres-passwd \

@@ -51,9 +51,9 @@ do
     fi
 done
 
-docker network create -d overlay notes-nginx-reversive-proxy
-docker network create -d overlay notes-backend
-docker network create -d overlay notes-notes-db
+docker network create --scope=swarm -d overlay notes-nginx-reversive-proxy
+docker network create --scope=swarm -d overlay notes-backend
+docker network create --scope=swarm -d overlay notes-notes-db
 
 for (( i=0; i<${#docker_secrets_names[@]}; i++ ));
 do
