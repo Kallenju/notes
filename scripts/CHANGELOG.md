@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.15](https://github.com/Kallenju/notes/compare/scripts@1.0.14...scripts@1.0.15) (2024-07-17)
+
+**Note:** Version bump only for package scripts
+
 ## [1.0.14](https://github.com/Kallenju/notes/compare/scripts@1.0.13...scripts@1.0.14) (2024-07-17)
 
 **Note:** Version bump only for package scripts
