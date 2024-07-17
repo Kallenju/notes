@@ -10,13 +10,14 @@ LABEL org.opencontainers.image.title="Notes Nginx" \
       org.opencontainers.image.source="https://github.com/Kallenju/notes"
 COPY ./logrotate /etc/logrotate.d/nginx
 RUN chmod 644 /etc/logrotate.d/nginx
-EXPOSE 80/tcp 5050/tcp 9929/tcp 9929/tcp
 HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s --retries=5 \
     CMD ps aux | grep nginx | grep -v grep || exit 1
 STOPSIGNAL SIGTERM
 
 FROM base AS dev
+EXPOSE 80/tcp 5050/tcp 9929/tcp 9929/tcp
 VOLUME /etc/nginx/nginx.conf /etc/logrotate.d/nginx /var/log/nginx/
 
 FROM base AS prod
+EXPOSE 80/tcp 443/tcp
 COPY --chown=nginx:101 ./nginx.prod.conf /etc/nginx/nginx.conf
