@@ -31,7 +31,7 @@ async function downloadFile(s3Client: S3Client, key: string): Promise<void> {
       throw new Error('data.Body is undefined');
     }
 
-    const filePath = path.resolve(publicFolder, key);
+    const filePath = path.resolve(BASE_FRONTEND_PATH, key);
 
     await fs.mkdir(path.dirname(filePath), { recursive: true });
 

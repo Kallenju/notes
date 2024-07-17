@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Use Node.js 20.13.1
@@ -21,10 +21,10 @@ jobs:
         with:
           node-version: 20.13.1
           cache: 'npm'
-        
+
       - name: Instal root deps
         run: npm ci --workspaces=false
-  
+
       - name: Create package specific package-lock.json
         run: NODE_NO_WARNINGS=1 node --loader ts-node/esm ./tools/buildPackageLock.ts frontend force
 
@@ -56,7 +56,7 @@ jobs:
       AWS_REGION: eu-central-1
 
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: configure aws credentials
@@ -92,7 +92,7 @@ jobs:
       AWS_REGION: eu-central-1
 
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: configure aws credentials
@@ -100,3 +100,12 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE_SSM_ARN }}
           aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update Container
+        run: |
+          aws ssm send-command \
+            --document-name "${{ secrets.AWS_DEPLOY_DOCUMENT_NAME }}" \
+            --targets "Key=instanceIds,Values=${{ secrets.AWS_DEPLOY_INSTANCES }}" \
+            --parameters "${{ secrets.AWS_DEPLOY_DOCUMENT_PARAMETER }}=restart-swarm-notes-frontend-server.sh" \
+            --region ${{ env.AWS_REGION }}
+            --comment "Restart frontend-server container due to static frontend update"
