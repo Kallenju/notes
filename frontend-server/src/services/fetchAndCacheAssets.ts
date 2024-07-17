@@ -74,7 +74,9 @@ export async function fetchAndCacheFiles(): Promise<void> {
     );
 
     if (!listObjectsResponse.Contents) {
-      throw new Error('listObjectsResponse.Contents is undefined');
+      throw new Error(
+        'listObjectsResponse.Contents is undefined. Check the bucket.',
+      );
     }
 
     await Promise.all(
