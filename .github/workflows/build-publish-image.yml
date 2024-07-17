@@ -20,7 +20,7 @@ jobs:
       IMAGE_NAME: 'IMAGE_NAME'
 
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Extract image name
@@ -38,7 +38,7 @@ jobs:
             exit 1
           fi
           echo "Image name is ${IMAGE_NAME}"
-      
+
       - name: Display image name
         run: echo "Image name is ${{ env.IMAGE_NAME }}"
 
@@ -47,20 +47,20 @@ jobs:
         with:
           node-version: 20.13.1
           cache: 'npm'
-        
+
       - name: Instal root deps
         run: npm ci --workspaces=false
-  
+
       - name: Create package specific package-lock.json
         run: NODE_NO_WARNINGS=1 node --loader ts-node/esm ./tools/buildPackageLock.ts ${{ env.IMAGE_NAME }} force
-  
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/notes-${{ env.IMAGE_NAME }}            
+            ${{ secrets.DOCKERHUB_USERNAME }}/notes-${{ env.IMAGE_NAME }}
           # generate Docker tags based on the following events/attributes
           tags: |
             type=match,pattern=${{ env.IMAGE_NAME }}@(\d+\.\d+\.\d+),group=1
@@ -72,10 +72,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-  
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-  
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
@@ -100,7 +100,7 @@ jobs:
       AWS_REGION: eu-central-1
 
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Extract image name
@@ -114,3 +114,12 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE_SSM_ARN }}
           aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update Container
+        run: |
+          aws ssm send-command \
+            --document-name "${{ secrets.AWS_DEPLOY_DOCUMENT_NAME }}" \
+            --targets "Key=instanceIds,Values=${{ secrets.AWS_DEPLOY_INSTANCES }}" \
+            --parameters "${{ secrets.AWS_DEPLOY_DOCUMENT_PARAMETER }}=update-swarm-notes-${{ env.IMAGE_NAME }}.sh" \
+            --region ${{ env.AWS_REGION }}
+            --comment "Update ${{ env.IMAGE_NAME }} container due to image update"
