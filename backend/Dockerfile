@@ -41,7 +41,6 @@ WORKDIR /usr/app/backend/
 COPY --chown=node:node package.json /usr/app/backend/
 COPY --chown=node:node --from=production-build /usr/app/backend/node_modules/ /usr/app/backend/node_modules/
 COPY --chown=node:node --from=production-build /usr/app/backend/dist/ /usr/app/backend/dist/
-EXPOSE 3000/tcp
 STOPSIGNAL SIGTERM
 HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s --retries=5 \
   CMD wget --no-verbose --tries=1 --spider http://0.0.0.0:3000/api/healthcheck || exit 1

@@ -8,43 +8,15 @@ import {
   GetObjectCommand,
   ListObjectsV2Command,
 } from '@aws-sdk/client-s3';
-import { STSClient, AssumeRoleCommand } from '@aws-sdk/client-sts';
 
 import { BASE_FRONTEND_PATH } from '../shared/constants.js';
 import { config } from '../shared/config.js';
 import { logger } from './logger.js';
 
 const AWS_REGION = 'eu-central-1' as const;
-const AWS_SESSION_NAME = 'frontend-server-download-assets' as const;
 
 const publicFolder = path.resolve(BASE_FRONTEND_PATH, 'public');
 const viewsFolder = path.resolve(BASE_FRONTEND_PATH, 'views');
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-async function getTemporaryCredentials() {
-  const stsClient = new STSClient({ region: AWS_REGION });
-  const assumeRoleCommand = new AssumeRoleCommand({
-    RoleArn: config.AWS_FRONTEND_BUCKET_ARN,
-    RoleSessionName: AWS_SESSION_NAME,
-  });
-
-  const response = await stsClient.send(assumeRoleCommand);
-
-  if (
-    !response.Credentials ||
-    !response.Credentials.AccessKeyId ||
-    !response.Credentials.SecretAccessKey ||
-    !response.Credentials.SessionToken
-  ) {
-    throw new Error('Cannot get AWS credentials');
-  }
-
-  return {
-    accessKeyId: response.Credentials.AccessKeyId,
-    secretAccessKey: response.Credentials.SecretAccessKey,
-    sessionToken: response.Credentials.SessionToken,
-  };
-}
 
 async function downloadFile(s3Client: S3Client, key: string): Promise<void> {
   const getObjectParams = {
