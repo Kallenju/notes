@@ -2,8 +2,8 @@
     "Servers": {
       "Notes": {
         "Group": "Notes",
-        "Name": "notes_db",
-        "Host": "notes_db",
+        "Name": "notes-db",
+        "Host": "notes-db",
         "Port": 5432,
         "Username": "postgres",
         "MaintenanceDB": "postgres"

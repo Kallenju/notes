@@ -1,6 +1,6 @@
 version: '3.8'
 
-name: notes_dev
+name: notes-dev
 
 volumes:
   notes-frontend-public:
@@ -8,7 +8,7 @@ volumes:
 networks:
   nginx-reversive-proxy:
   backend:
-  notes_db:
+  notes-db:
 
 services:
   nginx-reversive-proxy:
@@ -56,13 +56,13 @@ services:
         priority: 10
       backend:
         priority: 20
-      notes_db:
+      notes-db:
         priority: 30
     volumes:
       - ./backend/src/:/usr/app/backend/src/:ro
       - ./backend/log/:/var/log/backend/:rw
     depends_on:
-      notes_db:
+      notes-db:
         condition: service_healthy
 
   frontend-server:
@@ -123,7 +123,7 @@ services:
       - ./notes-db/log/:/var/log/postgres/:rw
     shm_size: 256mb
     networks:
-      - notes_db
+      - notes-db
 
   task-manager:
     build:
@@ -138,14 +138,14 @@ services:
     init: true
     restart: unless-stopped
     depends_on:
-      notes_db:
+      notes-db:
         condition: service_healthy
       backend:
         condition: service_healthy
     networks:
       backend:
         priority: 10
-      notes_db:
+      notes-db:
         priority: 20
     volumes:
       - ./task-manager/log/:/var/log/cron/:rw
@@ -164,12 +164,12 @@ services:
     init: true
     restart: unless-stopped
     depends_on:
-      notes_db:
+      notes-db:
         condition: service_healthy
     volumes:
       - ./pgadmin4/pgadmin4.dev.servers.json:/pgadmin4/servers.json:ro
     networks:
       nginx-reversive-proxy:
         priority: 10
-      notes_db:
+      notes-db:
         priority: 20
