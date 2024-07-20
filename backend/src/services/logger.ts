@@ -1,3 +1,10 @@
+import sourceMapSupport from 'source-map-support';
+
+sourceMapSupport.install({
+  handleUncaughtExceptions: true,
+  environment: 'node',
+});
+
 import winston from 'winston';
 import 'winston-daily-rotate-file';
 
