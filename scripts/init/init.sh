@@ -17,8 +17,8 @@ docker_secrets_names=(
     "notes-facebook-csrf-token-jwt-secret"
     "notes-frontend-server-public-key"
     "notes-cookie-secret"
-    "notes-frontend-server-auth-private-key"
-    "notes-frontend-server-auth-passphrase"
+    "notes-frontend-server-private-key"
+    "notes-frontend-server-passphrase"
     "notes-nginx-certificate.pem"
     "notes-nginx-certificate-key.pem"
 )
@@ -36,8 +36,8 @@ docker_secrets_file_paths=(
     "${current_dir}/../secrets/notes-facebook-csrf-token-jwt-secret.txt"
     "${current_dir}/../secrets/notes-frontend-server-public-key.txt"
     "${current_dir}/../secrets/notes-cookie-secret.txt"
-    "${current_dir}/../secrets/notes-frontend-server-auth-private-key.txt"
-    "${current_dir}/../secrets/notes-frontend-server-auth-passphrase.txt"
+    "${current_dir}/../secrets/notes-frontend-server-private-key.txt"
+    "${current_dir}/../secrets/notes-frontend-server-passphrase.txt"
     "${current_dir}/../secrets/notes-nginx-certificate.pem"
     "${current_dir}/../secrets/notes-nginx-certificate-key.pem"
 )
