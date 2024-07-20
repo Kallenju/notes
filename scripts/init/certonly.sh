@@ -20,9 +20,11 @@ done
 domain=$(cat "${secrets_file_paths[0]}")
 
 docker run --rm -it \
-    --name certbot \
-    --volume "/etc/letsencrypt/:/etc/letsencrypt/" \
-    --volume "/var/lib/letsencrypt/:/var/lib/letsencrypt/" \
+    --name swarm-notes-certbot \
+    --network notes-nginx-reversive-proxy \
+    --volume "/home/ec2-user/letsencrypt/ssl/:/etc/letsencrypt/" \
+    --volume "/home/ec2-user/letsencrypt/logs/:/var/log/letsencrypt/" \
+    --volume "/home/ec2-user/letsencrypt/root/:/var/www/html/" \
     certbot/certbot certonly \
     -d ${domain}
     --agree-tos

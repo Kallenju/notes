@@ -51,7 +51,7 @@ do
     fi
 done
 
-docker network create --scope=swarm -d overlay notes-nginx-reversive-proxy
+docker network create --scope=swarm -d overlay --attachable notes-nginx-reversive-proxy
 docker network create --scope=swarm -d overlay notes-backend
 docker network create --scope=swarm -d overlay notes-notes-db
 
