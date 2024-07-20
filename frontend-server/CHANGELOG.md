@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.28](https://github.com/Kallenju/notes/compare/frontend-server@1.0.27...frontend-server@1.0.28) (2024-07-20)
+
+**Note:** Version bump only for package frontend-server
+
 ## [1.0.27](https://github.com/Kallenju/notes/compare/frontend-server@1.0.26...frontend-server@1.0.27) (2024-07-17)
 
 **Note:** Version bump only for package frontend-server
