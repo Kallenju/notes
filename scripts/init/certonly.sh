@@ -22,9 +22,13 @@ domain=$(cat "${secrets_file_paths[0]}")
 docker run --rm -it \
     --name swarm-notes-certbot \
     --network notes-nginx-reversive-proxy \
-    --volume "/home/ec2-user/letsencrypt/ssl/:/etc/letsencrypt/" \
-    --volume "/home/ec2-user/letsencrypt/logs/:/var/log/letsencrypt/" \
-    --volume "/home/ec2-user/letsencrypt/root/:/var/www/html/" \
+    --mount source=swamr-notes-cerbot-root,target=/var/www/html/ \
+    --mount source=swamr-notes-cerbot-ssl,target=/etc/letsencrypt/ \
+    --mount source=swamr-notes-cerbot-logs,target/var/log/letsencrypt/ \
     certbot/certbot certonly \
-    -d ${domain}
+    --webroot \
+    -w /var/www/html \
+    -d ${domain} \
     --agree-tos
+
+docker wait swarm-notes-certbot
