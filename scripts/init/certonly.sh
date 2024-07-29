@@ -26,5 +26,7 @@ docker run --rm -it \
     --volume "/home/ec2-user/letsencrypt/logs/:/var/log/letsencrypt/" \
     --volume "/home/ec2-user/letsencrypt/root/:/var/www/html/" \
     certbot/certbot certonly \
+    --webroot
+    -w /var/www/html
     -d ${domain}
     --agree-tos
