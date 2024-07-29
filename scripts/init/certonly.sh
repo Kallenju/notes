@@ -24,7 +24,7 @@ docker run -it \
     --network notes-nginx-reversive-proxy \
     --mount source=swamr-notes-cerbot-root,target=/var/www/html/ \
     --mount source=swamr-notes-cerbot-ssl,target=/etc/letsencrypt/ \
-    --mount source=swamr-notes-cerbot-logs,target/var/log/letsencrypt/ \
+    --mount source=swamr-notes-cerbot-logs,target=/var/log/letsencrypt/ \
     certbot/certbot certonly \
     --webroot \
     -w /var/www/html \
