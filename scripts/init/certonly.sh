@@ -19,7 +19,7 @@ done
 
 domain=$(cat "${secrets_file_paths[0]}")
 
-docker run --rm -it \
+docker run -it \
     --name swarm-notes-certbot \
     --network notes-nginx-reversive-proxy \
     --mount source=swamr-notes-cerbot-root,target=/var/www/html/ \
@@ -30,5 +30,3 @@ docker run --rm -it \
     -w /var/www/html \
     -d ${domain} \
     --agree-tos
-
-docker wait swarm-notes-certbot
