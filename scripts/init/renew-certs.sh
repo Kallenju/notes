@@ -24,8 +24,8 @@ certbot_container="swarm-notes-certbot"
 docker run -d \
     --name ${certbot_container} \
     --network notes-nginx-reversive-proxy \
-    --mount source=swamr-notes-cerbot-ssl,target=/etc/letsencrypt/ \
-    --mount source=swamr-notes-cerbot-logs,target/var/log/letsencrypt/ \
+    --mount source=swarm-notes-cerbot-ssl,target=/etc/letsencrypt/ \
+    --mount source=swarm-notes-cerbot-logs,target/var/log/letsencrypt/ \
     certbot/certbot renew \
     --standalone \
     -d ${domain} \
