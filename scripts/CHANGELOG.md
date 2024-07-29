@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.23](https://github.com/Kallenju/notes/compare/scripts@1.0.22...scripts@1.0.23) (2024-07-29)
+
+**Note:** Version bump only for package scripts
+
 ## [1.0.22](https://github.com/Kallenju/notes/compare/scripts@1.0.21...scripts@1.0.22) (2024-07-29)
 
 **Note:** Version bump only for package scripts
