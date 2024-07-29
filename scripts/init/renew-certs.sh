@@ -19,13 +19,21 @@ done
 
 domain=$(cat "${secrets_file_paths[0]}")
 
-docker run --rm -it \
-    --name certbot \
-    --volume "/etc/letsencrypt/:/etc/letsencrypt/" \
-    --volume "/var/lib/letsencrypt/:/var/lib/letsencrypt/" \
+certbot_container="swarm-notes-certbot"
+
+docker run -d \
+    --name ${certbot_container} \
+    --network notes-nginx-reversive-proxy \
+    --mount source=swamr-notes-cerbot-root,target=/var/www/html/ \
+    --mount source=swamr-notes-cerbot-ssl,target=/etc/letsencrypt/ \
+    --mount source=swamr-notes-cerbot-logs,target/var/log/letsencrypt/ \
     certbot/certbot renew \
+    --webroot \
+    -w /var/www/html \
     -d ${domain} \
     --agree-tos
+
+docker wait ${certbot_container}
 
 certbot_cert="/etc/letsencrypt/live/${domain}/cert.pem"
 certbot_key="/etc/letsencrypt/live/${domain}/privkey.pem"
@@ -38,8 +46,8 @@ if [ "${certbot_cert}" -nt "${nginx_cert}" ]; then
     rm "${nginx_cert}"
     rm "${nginx_key}"
     echo "Copy new certs..."
-    cp "${certbot_cert}" "${nginx_cert}"
-    cp "${certbot_key}" "${nginx_key}"
+    docker cp "${certbot_container}:${certbot_cert}" "${nginx_cert}"
+    docker cp "${certbot_container}:${certbot_key}" "${nginx_key}"
     echo "Create dummy secrets..."
     docker secret create dummy-notes-nginx-certificate.pem "${nginx_cert}"
     docker secret create dummy-notes-nginx-certificate-key.pem "${nginx_key}"
@@ -68,3 +76,6 @@ if [ "${certbot_cert}" -nt "${nginx_cert}" ]; then
 else
     echo "Certificate is already up-to-date."
 fi
+
+echo "Remove certbot docker container"
+docker rm --force ${certbot_container}
