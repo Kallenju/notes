@@ -31,18 +31,18 @@ class FacebookLoginService {
     });
 
     facebookSDKScript.addEventListener('load', () => {
-      if (config.isDevelopment) {
-        this.facebookSDKPromiseResolve();
-
-        return;
-      }
-
       window.FB.init({
         appId: '1489613968561902',
         xfbml: false,
         status: false,
         version: 'v19.0'
       });
+
+      if (config.isDevelopment) {
+        this.facebookSDKPromiseResolve();
+
+        return;
+      }
 
       window.FB.Event
         .subscribe(
