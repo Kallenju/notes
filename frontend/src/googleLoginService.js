@@ -17,12 +17,6 @@ class GoogleLoginService {
   }
 
   initGoogleSDK() {
-    if (config.isDevelopment) {
-      this.googleSDKPromiseResolve();
-
-      return;
-    }
-
     const googleSDKScript = document.createElement('script');
 
     googleSDKScript.setAttribute('async', '');
@@ -35,6 +29,12 @@ class GoogleLoginService {
 
     googleSDKScript.addEventListener('load', async () => {
       try {
+        if (config.isDevelopment) {
+          this.googleSDKPromiseResolve();
+
+          return;
+        }
+
         window.google.accounts.id.initialize({
           client_id: '1093698814286-tg0p4hvddp64lh6b7o0bpl4cq4lp7i4v.apps.googleusercontent.com',
           callback: async (response) => await this?.signInCb(response.credential),

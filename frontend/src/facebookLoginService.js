@@ -19,12 +19,6 @@ class FacebookLoginService {
   }
 
   initFacebookSDK() {
-    if (config.isDevelopment) {
-      this.facebookSDKPromiseResolve();
-
-      return;
-    }
-
     const facebookSDKScript = document.createElement('script');
 
     facebookSDKScript.setAttribute('async', '');
@@ -37,6 +31,12 @@ class FacebookLoginService {
     });
 
     facebookSDKScript.addEventListener('load', () => {
+      if (config.isDevelopment) {
+        this.facebookSDKPromiseResolve();
+
+        return;
+      }
+
       window.FB.init({
         appId: '1489613968561902',
         xfbml: false,
