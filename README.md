@@ -10,7 +10,7 @@ npm start
 Here's a brief summary of the setup:
 
 - Web Application (or some service) running on `http://localhost:8080`.
-- PGAdmin4 (a PostgreSQL management tool) accessible at `http://localhost:5050`.
+- PGAdmin4 (a PostgreSQL management tool) accessible at `http://localhost:5050` (login: dev@gmail.com; password: qwerty123).
 - Backend server debugger on `127.0.0.1:9929`.
 - Frontend server debugger on `127.0.0.1:9928`.
 - Automatic restarts using nodemon inside Docker containers.
