@@ -19,7 +19,7 @@ done
 
 domain=$(cat "${secrets_file_paths[0]}")
 
-docker run -it \
+docker run --rm -it \
     --name swarm-notes-certbot \
     --network notes-nginx-reversive-proxy \
     --mount source=swarm-notes-cerbot-ssl,target=/etc/letsencrypt/ \

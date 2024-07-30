@@ -1,3 +1,5 @@
+import { config } from './config';
+
 class FacebookLoginService {
   constructor(onErrorLoadHandler) {
     this.shouldReRequest = false;
@@ -36,12 +38,18 @@ class FacebookLoginService {
         version: 'v19.0'
       });
 
+      if (config.isDevelopment) {
+        this.facebookSDKPromiseResolve();
+
+        return;
+      }
+
       window.FB.Event
         .subscribe(
           'auth.login',
           async (response) => {
             await Promise.all(
-              this.loginHandlers.map(async (handler) => handler(response))
+              this.loginHandlers.map(async (handler) => handler(response, 'manual'))
             );
           }
         );
@@ -57,12 +65,26 @@ class FacebookLoginService {
         );
 
       this.facebookSDKPromiseResolve();
+
+      this.getLoginStatus()
+        .then(async response => {
+          await Promise.all(
+            this.loginHandlers.map(async (handler) => handler(response, 'auto'))
+          );
+        })
+        .catch(() => {
+          throw new Error('Error to get Facebook login status')
+        })
     }, { once: true });
 
     document.head.append(facebookSDKScript)
   }
 
   async getLoginStatus() {
+    if (config.isDevelopment) {
+      return;
+    }
+
     await this.facebookSDKPromise;
 
     return new Promise((resolve, reject) => {
@@ -80,9 +102,21 @@ class FacebookLoginService {
   }
 
   async login() {
+    if (config.isDevelopment) {
+      return;
+    }
+
     await this.facebookSDKPromise;
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+      const isloggedIn = await this.getLoginStatus()
+        .then(response => response.status === 'connected')
+        .catch(() => false);
+
+      if (isloggedIn) {
+        return null;
+      }
+
       window.FB.login(
         (response) => {
           try {
@@ -113,6 +147,10 @@ class FacebookLoginService {
   }
 
   async logout() {
+    if (config.isDevelopment) {
+      return;
+    }
+
     await this.facebookSDKPromise;
 
     return new Promise((resolve, reject) => {
@@ -127,6 +165,10 @@ class FacebookLoginService {
   }
 
   async api(fields) {
+    if (config.isDevelopment) {
+      return;
+    }
+
     await this.facebookSDKPromise;
 
     const loginStatus = await this.getLoginStatus();
@@ -161,6 +203,10 @@ class FacebookLoginService {
   }
 
   addAuthChangeHandlers(event, handler) {
+    if (config.isDevelopment) {
+      return;
+    }
+
     switch (event) {
       case 'login': {
         this.loginHandlers.push(handler);

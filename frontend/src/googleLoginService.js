@@ -1,4 +1,5 @@
 import { getGoogleCSRFToken } from './api';
+import { config } from './config';
 
 class GoogleLoginService {
   constructor(signInCb, onErrorLoadHandler) {
@@ -30,10 +31,16 @@ class GoogleLoginService {
       try {
         window.google.accounts.id.initialize({
           client_id: '1093698814286-tg0p4hvddp64lh6b7o0bpl4cq4lp7i4v.apps.googleusercontent.com',
-          callback: async (response) => await this?.signInCb(response.credential),
+          callback: async (response) => {
+            if (config.isDevelopment) {
+              return
+            }
+
+            await this?.signInCb(response.credential)
+          },
           auto_select: false,
           cancel_on_tap_outside: true,
-          nonce: this.signInCb ? await getGoogleCSRFToken().then(({ token }) => token) : undefined,
+          nonce: this.signInCb && !config.isDevelopment ? await getGoogleCSRFToken().then(({ token }) => token) : undefined,
           ux_mode: 'popup',
         });
 
@@ -66,6 +73,10 @@ class GoogleLoginService {
   }
 
   async signout() {
+    if (config.isDevelopment) {
+      return;
+    }
+
     await this.googleSDKPromise;
 
     window.google.accounts.id.disableAutoSelect();
