@@ -41,6 +41,7 @@ The project incorporates several fundamental DevOps features:
 ## Backend Features
 
 - Express
+- Integrations with Google Sign in and Facebook Login
 - PostgreSQL Database:
   - Direct SQL queries with pg (no TypeORM)
 - Custom Migration Tools:
