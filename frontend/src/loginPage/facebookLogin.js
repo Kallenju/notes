@@ -4,11 +4,15 @@ import { facebookSignIn } from '../api';
 
 const facebookLoginService = new FacebookLoginService(renderLoginPageError);
 
-facebookLoginService.addAuthChangeHandlers('login', async (response) => {
+facebookLoginService.addAuthChangeHandlers('login', async (response, type) => {
   if (
     response.status !== 'connected' ||
-    !response.authResponse.grantedScopes.includes('email') ||
-    !response.authResponse.grantedScopes.includes('public_profile')
+    (
+      type === 'manual' && (
+        !response.authResponse.grantedScopes.includes('email') ||
+        !response.authResponse.grantedScopes.includes('public_profile')
+      )
+  )
   ) {
     return;
   }

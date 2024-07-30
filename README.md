@@ -19,11 +19,9 @@ Here's a brief summary of the setup:
 
 This project is designed to facilitate the creation and management of notes using Markdown. It includes features for editing, searching, archiving, and deleting notes.
 
-The project serves as a practical exercise to deepen DevOps and Backend competencies.
+The project serves as a practical exercise to deepen DevOps and Backend competencies and best practise.
 
 ## DevOps Features
-
-In this project I implemented several basic DevOps features:
 
 The project incorporates several fundamental DevOps features:
 

@@ -41,7 +41,7 @@ class FacebookLoginService {
           'auth.login',
           async (response) => {
             await Promise.all(
-              this.loginHandlers.map(async (handler) => handler(response))
+              this.loginHandlers.map(async (handler) => handler(response, 'manual'))
             );
           }
         );
@@ -57,6 +57,16 @@ class FacebookLoginService {
         );
 
       this.facebookSDKPromiseResolve();
+
+      this.getLoginStatus()
+        .then(async response => {
+          await Promise.all(
+            this.loginHandlers.map(async (handler) => handler(response, 'auto'))
+          );
+        })
+        .catch(() => {
+          throw new Error('Error to get Facebook login status')
+        })
     }, { once: true });
 
     document.head.append(facebookSDKScript)
@@ -82,7 +92,15 @@ class FacebookLoginService {
   async login() {
     await this.facebookSDKPromise;
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+      const isloggedIn = await this.getLoginStatus()
+        .then(response => response.status === 'connected')
+        .catch(() => false);
+
+      if (isloggedIn) {
+        return null;
+      }
+
       window.FB.login(
         (response) => {
           try {
