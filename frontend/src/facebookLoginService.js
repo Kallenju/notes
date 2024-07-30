@@ -1,3 +1,5 @@
+import { config } from './config';
+
 class FacebookLoginService {
   constructor(onErrorLoadHandler) {
     this.shouldReRequest = false;
@@ -17,6 +19,12 @@ class FacebookLoginService {
   }
 
   initFacebookSDK() {
+    if (config.isDevelopment) {
+      this.facebookSDKPromiseResolve();
+
+      return;
+    }
+
     const facebookSDKScript = document.createElement('script');
 
     facebookSDKScript.setAttribute('async', '');
@@ -73,6 +81,10 @@ class FacebookLoginService {
   }
 
   async getLoginStatus() {
+    if (config.isDevelopment) {
+      return;
+    }
+
     await this.facebookSDKPromise;
 
     return new Promise((resolve, reject) => {
@@ -90,6 +102,10 @@ class FacebookLoginService {
   }
 
   async login() {
+    if (config.isDevelopment) {
+      return;
+    }
+
     await this.facebookSDKPromise;
 
     return new Promise(async (resolve, reject) => {
@@ -131,6 +147,10 @@ class FacebookLoginService {
   }
 
   async logout() {
+    if (config.isDevelopment) {
+      return;
+    }
+
     await this.facebookSDKPromise;
 
     return new Promise((resolve, reject) => {
@@ -145,6 +165,10 @@ class FacebookLoginService {
   }
 
   async api(fields) {
+    if (config.isDevelopment) {
+      return;
+    }
+
     await this.facebookSDKPromise;
 
     const loginStatus = await this.getLoginStatus();
@@ -179,6 +203,10 @@ class FacebookLoginService {
   }
 
   addAuthChangeHandlers(event, handler) {
+    if (config.isDevelopment) {
+      return;
+    }
+
     switch (event) {
       case 'login': {
         this.loginHandlers.push(handler);

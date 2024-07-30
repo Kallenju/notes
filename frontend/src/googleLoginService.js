@@ -1,4 +1,5 @@
 import { getGoogleCSRFToken } from './api';
+import { config } from './config';
 
 class GoogleLoginService {
   constructor(signInCb, onErrorLoadHandler) {
@@ -16,6 +17,12 @@ class GoogleLoginService {
   }
 
   initGoogleSDK() {
+    if (config.isDevelopment) {
+      this.googleSDKPromiseResolve();
+
+      return;
+    }
+
     const googleSDKScript = document.createElement('script');
 
     googleSDKScript.setAttribute('async', '');
@@ -66,6 +73,10 @@ class GoogleLoginService {
   }
 
   async signout() {
+    if (config.isDevelopment) {
+      return;
+    }
+
     await this.googleSDKPromise;
 
     window.google.accounts.id.disableAutoSelect();
