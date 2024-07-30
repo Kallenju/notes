@@ -15,7 +15,7 @@ HEALTHCHECK --interval=360s --timeout=3s --start-period=15s --start-interval=1s 
 STOPSIGNAL SIGTERM
 
 FROM base AS dev
-EXPOSE 80/tcp 5050/tcp 9929/tcp 9929/tcp
+EXPOSE 80/tcp 5050/tcp 9928/tcp 9929/tcp
 VOLUME /etc/nginx/nginx.conf /etc/logrotate.d/nginx /var/log/nginx/
 
 FROM base AS prod
