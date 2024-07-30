@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.27](https://github.com/Kallenju/notes/compare/nginx@1.0.26...nginx@1.0.27) (2024-07-30)
+
+**Note:** Version bump only for package nginx
+
 ## [1.0.26](https://github.com/Kallenju/notes/compare/nginx@1.0.25...nginx@1.0.26) (2024-07-29)
 
 **Note:** Version bump only for package nginx
