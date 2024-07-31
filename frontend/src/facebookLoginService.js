@@ -65,16 +65,6 @@ class FacebookLoginService {
         );
 
       this.facebookSDKPromiseResolve();
-
-      this.getLoginStatus()
-        .then(async response => {
-          await Promise.all(
-            this.loginHandlers.map(async (handler) => handler(response, 'auto'))
-          );
-        })
-        .catch(() => {
-          throw new Error('Error to get Facebook login status')
-        })
     }, { once: true });
 
     document.head.append(facebookSDKScript)
