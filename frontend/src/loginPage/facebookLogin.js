@@ -6,6 +6,7 @@ const facebookLoginService = new FacebookLoginService(renderLoginPageError);
 
 async function login(response, type) {
   if (
+    !response ||
     response.status !== 'connected' ||
     (
       type === 'manual' && (
