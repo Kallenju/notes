@@ -4,7 +4,7 @@ import { facebookSignIn } from '../api';
 
 const facebookLoginService = new FacebookLoginService(renderLoginPageError);
 
-facebookLoginService.addAuthChangeHandlers('login', async (response, type) => {
+async function login(response, type) {
   if (
     response.status !== 'connected' ||
     (
@@ -27,7 +27,9 @@ facebookLoginService.addAuthChangeHandlers('login', async (response, type) => {
   } catch (error) {
     renderLoginPageError(error);
   }
-})
+}
+
+facebookLoginService.addAuthChangeHandlers('login', login)
 
 const facebookLoginServiceButton = document.body.querySelector('button#facebook-login-button');
 
@@ -46,3 +48,16 @@ if (facebookLoginServiceButton) {
     }
   })
 }
+
+facebookLoginServiceButton?.setAttribute('disabled', '');
+
+facebookLoginService.getLoginStatus()
+  .then(async response => {
+    await login(response, 'auto');
+  })
+  .catch((error) => {
+    renderLoginPageError(error);
+  })
+  .finally(() => {
+    facebookLoginServiceButton?.removeAttribute('disabled', '');
+  })
