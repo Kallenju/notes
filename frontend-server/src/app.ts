@@ -31,6 +31,8 @@ export function startServer(): void {
           defaultSrc: 'self',
           connectSrc: [
             "'self'",
+            'https://www.facebook.com',
+            'https://www.facebook.com/x/oauth/',
             'https://cdn.jsdelivr.net/codemirror.spell-checker/',
             'https://accounts.google.com/gsi/',
             'https://*.facebook.com/platform/',
@@ -48,6 +50,7 @@ export function startServer(): void {
           imgSrc: [
             "'self'",
             'data:',
+            'https://www.gravatar.com',
             'https://www.gravatar.com/avatar/',
             'https://*.facebook.com/platform/',
           ],
@@ -60,10 +63,13 @@ export function startServer(): void {
           scriptSrcAttr: 'none',
           styleSrc: [
             "'self'",
+            'https://cdn.jsdelivr.net',
             'https://cdn.jsdelivr.net/npm/uikit@3.5.9/dist/css/uikit.min.css',
+            'https://cdnjs.cloudflare.com',
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/',
             'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/',
-            'https://unpkg.com/easymde/',
+            'https://unpkg.com',
+            'https://unpkg.com/easymde/dist/easymde.min.css',
             'https://accounts.google.com/gsi/',
             "'unsafe-inline'",
           ],
