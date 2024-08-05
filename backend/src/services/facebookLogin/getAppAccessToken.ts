@@ -7,7 +7,9 @@ import { StatusError } from '../../shared/StatusError.js';
 let appAccessToken =
   config.NODE_ENV === 'production'
     ? null
-    : config.FACEBOOK_APP_DEVELOPMENT_ACCESS_TOKEN;
+    : new Promise<string>((r) =>
+        r(config.FACEBOOK_APP_DEVELOPMENT_ACCESS_TOKEN),
+      );
 
 export async function getAppAccessToken(): Promise<string> {
   if (config.NODE_ENV !== 'production') {
@@ -15,7 +17,7 @@ export async function getAppAccessToken(): Promise<string> {
   }
 
   if (!appAccessToken) {
-    await axios
+    appAccessToken = axios
       .get<{ access_token: string }>(
         'https://graph.facebook.com/oauth/access_token',
         {
@@ -27,7 +29,7 @@ export async function getAppAccessToken(): Promise<string> {
         },
       )
       .then((result) => {
-        appAccessToken = result.data.access_token;
+        return result.data.access_token;
       })
       .catch((error) => {
         logger.error(
