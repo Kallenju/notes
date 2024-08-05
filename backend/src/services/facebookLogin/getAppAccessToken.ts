@@ -16,21 +16,22 @@ export async function getAppAccessToken(): Promise<string> {
 
   if (!appAccessToken) {
     await axios
-      .request<{ token: string }>({
-        method: 'GET',
-        url: 'https://graph.facebook.com/oauth/access_token',
-        params: {
-          client_id: config.FACEBOOK_APP_ID,
-          client_secret: config.FACEBOOK_APP_SECRET,
-          grant_type: 'client_credentials',
+      .get<{ access_token: string }>(
+        'https://graph.facebook.com/oauth/access_token',
+        {
+          params: {
+            client_id: config.FACEBOOK_APP_ID,
+            client_secret: config.FACEBOOK_APP_SECRET,
+            grant_type: 'client_credentials',
+          },
         },
-      })
+      )
       .then((result) => {
-        appAccessToken = result.data.token;
+        appAccessToken = result.data.access_token;
       })
       .catch((error) => {
         logger.error(
-          `Cannot make a request for an app access token:\n${error instanceof Error && error.stack ? error.stack : error}\n${isAxiosError(error) ? `${error.cause}\n${error.message}` : ''}`,
+          `Cannot make a request for an app access token:\n${error instanceof Error && error.stack ? error.stack : error}\n${isAxiosError(error) ? `${error.cause}\n${error.message}\n${error.response?.data}\n${error.config?.url}` : ''}`,
         );
 
         throw new StatusError('Something went wrong.', 500);
