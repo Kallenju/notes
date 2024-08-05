@@ -4,16 +4,10 @@ import { facebookSignIn } from '../api';
 
 const facebookLoginService = new FacebookLoginService(renderLoginPageError);
 
-async function login(response, type) {
+async function login(response) {
   if (
     !response ||
-    response.status !== 'connected' ||
-    (
-      type === 'manual' && (
-        !response.authResponse.grantedScopes.includes('email') ||
-        !response.authResponse.grantedScopes.includes('public_profile')
-      )
-  )
+    response.status !== 'connected'
   ) {
     return;
   }
@@ -49,16 +43,3 @@ if (facebookLoginServiceButton) {
     }
   })
 }
-
-facebookLoginServiceButton?.setAttribute('disabled', '');
-
-facebookLoginService.getLoginStatus()
-  .then(async response => {
-    await login(response, 'auto');
-  })
-  .catch((error) => {
-    renderLoginPageError(error);
-  })
-  .finally(() => {
-    facebookLoginServiceButton?.removeAttribute('disabled', '');
-  })

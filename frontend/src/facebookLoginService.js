@@ -49,7 +49,7 @@ class FacebookLoginService {
           'auth.login',
           async (response) => {
             await Promise.all(
-              this.loginHandlers.map(async (handler) => handler(response, 'manual'))
+              this.loginHandlers.map(async (handler) => handler(response))
             );
           }
         );
@@ -99,12 +99,14 @@ class FacebookLoginService {
     await this.facebookSDKPromise;
 
     return new Promise(async (resolve, reject) => {
-      const isloggedIn = await this.getLoginStatus()
-        .then(response => response.status === 'connected')
-        .catch(() => false);
+      const loginStatus = await this.getLoginStatus()
 
-      if (isloggedIn) {
-        return null;
+      if (loginStatus.status === 'connected') {
+        Promise.all(
+          this.loginHandlers.map(async (handler) => handler(loginStatus))
+        );
+
+        return loginStatus;
       }
 
       window.FB.login(
