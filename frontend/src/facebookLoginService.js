@@ -44,13 +44,17 @@ class FacebookLoginService {
         return;
       }
 
+      document.addEventListener('fb-auth-login', async (event) => {
+        await Promise.all(
+          this.loginHandlers.map(async (handler) => handler(event.detail))
+        );
+      })
+
       window.FB.Event
         .subscribe(
           'auth.login',
           async (response) => {
-            await Promise.all(
-              this.loginHandlers.map(async (handler) => handler(response))
-            );
+            document.dispatchEvent(new CustomEvent('fb-auth-login', { detail: response }));
           }
         );
 
@@ -102,9 +106,7 @@ class FacebookLoginService {
       const loginStatus = await this.getLoginStatus()
 
       if (loginStatus.status === 'connected') {
-        Promise.all(
-          this.loginHandlers.map(async (handler) => handler(loginStatus))
-        );
+        document.dispatchEvent(new CustomEvent('fb-auth-login', { detail: loginStatus }));
 
         return loginStatus;
       }

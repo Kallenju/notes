@@ -1,5 +1,5 @@
 docker service update \
-    --image kallenju/notes-frontend-server:latest \
+    --force \
     swarm-notes-frontend-server
 
 docker service update \
