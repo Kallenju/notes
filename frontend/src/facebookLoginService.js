@@ -143,6 +143,12 @@ class FacebookLoginService {
 
     await this.facebookSDKPromise;
 
+    const responseLoginStatus = await this.getLoginStatus()
+
+    if (!responseLoginStatus || responseLoginStatus.connected !== 'connected') {
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       window.FB.logout((response) => {
         try {
