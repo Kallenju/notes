@@ -27,9 +27,13 @@ const config =
               process.env.AUTH_PASSPHRASE,
               process.env.AWS_FRONTEND_BUCKET,
               process.env.AWS_FRONTEND_BUCKET_ARN,
-            ].map(async (secretPath) =>
-              fs.readFile(path.normalize(secretPath), { encoding: 'utf8' }),
-            ),
+            ].map(async (secretPath) => {
+              const secret = await fs.readFile(path.normalize(secretPath), {
+                encoding: 'utf8',
+              });
+
+              return secret.replace(/\n$/, '');
+            }),
           );
 
           return {
