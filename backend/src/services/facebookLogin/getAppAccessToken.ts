@@ -33,7 +33,7 @@ export async function getAppAccessToken(): Promise<string> {
       })
       .catch((error) => {
         logger.error(
-          `Cannot make a request for an app access token:\n${error instanceof Error && error.stack ? error.stack : error}\n${isAxiosError(error) ? `${error.cause}\n${error.message}\n${error.response?.data}\n${error.config?.url}` : ''}`,
+          `Cannot make a request for an app access token:\n${error instanceof Error && error.stack ? error.stack : error}\n${isAxiosError(error) ? `${error.cause}\n${error.message}\n${JSON.stringify(error.response?.data)}\n${JSON.stringify(error.config)}` : ''}`,
         );
 
         throw new StatusError('Something went wrong.', 500);
