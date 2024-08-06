@@ -22,7 +22,10 @@ export async function getFacebookEmailByUserId(
     })
     .then(({ data }) => {
       if (!data.email) {
-        throw new StatusError('No facebook email.', 500);
+        throw new StatusError(
+          `No facebook email for ${facebookUserId}. Data: ${JSON.stringify(data)}`,
+          500,
+        );
       }
 
       return data.email;
