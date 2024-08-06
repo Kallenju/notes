@@ -24,7 +24,7 @@ export async function getFacebookEmailByUserId(
     .then((response) => {
       if (!response.data.email) {
         throw new StatusError(
-          `No facebook email for ${facebookUserId}. Data: ${JSON.stringify(response.data)}. Response: ${JSON.stringify(response.config)} ${JSON.stringify(response.request)}`,
+          `No facebook email for ${facebookUserId}. Data: ${JSON.stringify(response.data)}. Response: ${JSON.stringify(response.config)} ${secureParams.appAccessToken})}`,
           500,
         );
       }
