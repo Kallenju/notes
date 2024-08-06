@@ -58,13 +58,11 @@ const config =
               process.env.FRONTEND_SERVER_PUBLIC_KEY,
               process.env.COOKIE_SECRET,
               process.env.PGPASSWORD,
-            ].map(async (secretPath) => {
-              const secret = await fs.readFile(path.normalize(secretPath), {
+            ].map(async (secretPath) =>
+              fs.readFile(path.normalize(secretPath), {
                 encoding: 'utf8',
-              });
-
-              return secret.replace(/\n$/, '');
-            }),
+              }),
+            ),
           );
 
           return {
