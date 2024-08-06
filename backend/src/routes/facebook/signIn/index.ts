@@ -35,7 +35,10 @@ signInRouter.post<
       throw new StatusError('Please try re-login.', 401);
     }
 
-    const email = await getFacebookEmailByUserId(facebookUserId);
+    const email = await getFacebookEmailByUserId(
+      facebookUserId,
+      facebookAccessToken,
+    );
 
     const client = await db.connect();
 
