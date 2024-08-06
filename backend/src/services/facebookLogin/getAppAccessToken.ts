@@ -30,9 +30,9 @@ export async function getAppAccessToken(): Promise<string> {
         'https://graph.facebook.com/oauth/access_token',
         {
           params: {
+            grant_type: 'client_credentials',
             client_id: config.FACEBOOK_APP_ID,
             client_secret: config.FACEBOOK_APP_SECRET,
-            grant_type: 'client_credentials',
           },
         },
       )
