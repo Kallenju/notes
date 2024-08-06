@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.34](https://github.com/Kallenju/notes/compare/backend@1.0.33...backend@1.0.34) (2024-08-06)
+
+**Note:** Version bump only for package backend
+
 ## [1.0.33](https://github.com/Kallenju/notes/compare/backend@1.0.32...backend@1.0.33) (2024-08-06)
 
 **Note:** Version bump only for package backend
