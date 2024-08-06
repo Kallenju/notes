@@ -11,7 +11,7 @@ export async function verifyUserAccessToken(
   const secureParams = await getSecureRequestParams();
 
   return axios
-    .request<{
+    .get<{
       data: {
         app_id: number;
         type: string | 'USER';
@@ -23,9 +23,7 @@ export async function verifyUserAccessToken(
         scopes: string[];
         user_id: string;
       };
-    }>({
-      method: 'GET',
-      url: `https://graph.facebook.com/v19.0/debug_token`,
+    }>(`https://graph.facebook.com/v19.0/debug_token`, {
       params: {
         input_token: token,
         access_token: secureParams.appAccessToken,
