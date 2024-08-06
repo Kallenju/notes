@@ -27,8 +27,6 @@ export async function verifyUserAccessToken(
       params: {
         input_token: token,
         access_token: secureParams.appAccessToken,
-        // appsecret_proof: secureParams.appSecretProof,
-        // appsecret_time: secureParams.appSecretTime,
       },
     })
     .then(({ data: { data } }) => {
@@ -44,7 +42,7 @@ export async function verifyUserAccessToken(
     })
     .catch((error) => {
       logger.error(
-        `Cannot make a verify Facebook user access token request:\n${error instanceof Error && error.stack ? error.stack : error}\n${isAxiosError(error) ? `${error.cause}\n${error.message}\n${JSON.stringify(error.config)}\n${JSON.stringify(error.response)}` : ''}`,
+        `Cannot make a verify Facebook user access token request:\n${error instanceof Error && error.stack ? error.stack : error}\n${isAxiosError(error) ? `${error.cause}\n${error.message}` : ''}`,
       );
 
       throw new StatusError('Something went wrong.', 500);
