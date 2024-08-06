@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 import { getSecureRequestParams } from './getSecureRequestParams.js';
 import { logger } from '../logger.js';
@@ -46,7 +46,7 @@ export async function verifyUserAccessToken(
     })
     .catch((error) => {
       logger.error(
-        `Cannot make a verify Facebook user access token request:\n${error instanceof Error && error.stack ? error.stack : error}`,
+        `Cannot make a verify Facebook user access token request:\n${error instanceof Error && error.stack ? error.stack : error}\n${isAxiosError(error) ? `${error.cause}\n${error.message}\n${JSON.stringify(error.config)}\n${JSON.stringify(error.response)}` : ''}`,
       );
 
       throw new StatusError('Something went wrong.', 500);
