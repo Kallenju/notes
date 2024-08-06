@@ -16,6 +16,14 @@ export async function getAppAccessToken(): Promise<string> {
     return appAccessToken!;
   }
 
+  logger.error(
+    `error config.FACEBOOK_APP_ID ${config.FACEBOOK_APP_ID} ${config.FACEBOOK_APP_ID.includes('\n')}`,
+  );
+
+  logger.error(
+    `error config.FACEBOOK_APP_SECRET ${config.FACEBOOK_APP_SECRET} ${config.FACEBOOK_APP_SECRET.includes('\n')}`,
+  );
+
   if (!appAccessToken) {
     appAccessToken = axios
       .get<{ access_token: string }>(
